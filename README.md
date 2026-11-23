@@ -16,15 +16,39 @@ Serve the **repo root** so overlay GeoJSON paths resolve:
 
 ```bash
 python3 -m http.server 5173
-# Demo:   http://localhost:5173/apps/demo/
-# Embed:  http://localhost:5173/apps/embed/
-# Docs:   http://localhost:5173/apps/docs/
+# Demo:    http://localhost:5173/apps/demo/
+# Transit: http://localhost:5173/apps/transit-demo/
+# Embed:   http://localhost:5173/apps/embed/
+# Docs:    http://localhost:5173/apps/docs/
 # Manifest: http://localhost:5173/overlays/manifest.json
 ```
 
 Demo UX (Berlin): layer chips, left results list (expand/collapse), search among **visible** pins, Directions deep-links, list updates when the map moves. Flat 2D map only. Overlays load from [`overlays/manifest.json`](overlays/manifest.json) in parallel after the basemap.
 
 **Docs (EN):** [apps/docs/](apps/docs/) — overview, embed for agents, and how to contribute. Sample city: **Berlin**.
+
+## Berlin bus routes (separate map)
+
+![Berlin buses — BVG 100 / 200 / M41](docs/assets/transit-preview.png)
+
+A second static demo — [`apps/transit-demo/`](apps/transit-demo/) — shows **real BVG bus lines** moving on the street network (not the curated pin overlays above).
+
+| Idea | Detail |
+|------|--------|
+| Lines | **Bus 100**, **200**, **M41** — shapes + stops from **VBB GTFS** |
+| Routes | Static coloured LineStrings on the OpenFreeMap basemap |
+| Vehicles | Markers move at ~**22 km/h** geographic speed (zoom-independent) |
+| Directions | Buses run **outbound and inbound**; at the terminus they restart that way |
+| Stops | 1s dwell — marker grows, then continues |
+| Not included | Live GTFS-RT / real-time positions (simulation only) |
+
+```bash
+# from repo root
+python3 -m http.server 5173
+open http://localhost:5173/apps/transit-demo/
+```
+
+Data file: [`apps/transit-demo/data/berlin-routes.geojson`](apps/transit-demo/data/berlin-routes.geojson). Attribution: VBB/BVG GTFS + OpenFreeMap/OSM.
 
 ## MVP overlay categories
 
@@ -72,9 +96,10 @@ overlays/     curated GeoJSON by category (Berlin MVP)
 assets/icons/ layer icons (SVG)
 schemas/      taxonomy.json + overlay.schema.json
 overlays/manifest.json  stable URL index for agents / embeds
-apps/demo/    static MapLibre demo (chips + results list)
-apps/embed/   drop-in map for third-party demos
-apps/docs/    documentation UI
+apps/demo/         static MapLibre demo (chips + results list)
+apps/transit-demo/ BVG 100/200/M41 — GTFS shapes, both-dir simulated buses
+apps/embed/        drop-in map for third-party demos
+apps/docs/         documentation UI
 packages/sdk/ plain ESM validate helpers
 packages/mcp/ optional file-backed MCP server
 scripts/      validate-overlays.mjs (CI)

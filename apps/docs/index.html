@@ -20,6 +20,7 @@
       </div>
       <nav class="top-nav" aria-label="Primary">
         <a href="../demo/">Demo map</a>
+        <a href="../transit-demo/">Berlin buses</a>
         <a href="https://github.com/petrovicistefan/world-map-open-source">GitHub</a>
       </nav>
     </header>
@@ -68,7 +69,8 @@
 
           <h3>1. Serve the repo locally</h3>
           <pre><code>python3 -m http.server 5173
-# Demo:  http://localhost:5173/apps/demo/
+# Demo:    http://localhost:5173/apps/demo/
+# Transit: http://localhost:5173/apps/transit-demo/
 # Docs:  http://localhost:5173/apps/docs/</code></pre>
 
           <h3>2. MapLibre + OpenFreeMap</h3>
@@ -104,6 +106,15 @@ const map = new maplibregl.Map({
             Full implementation:
             <a href="../demo/"><code>apps/demo/</code></a>
             (<code>main.js</code> + <code>overlays-config.js</code>).
+          </p>
+
+          <h3>Berlin bus routes</h3>
+          <p>
+            Separate demo:
+            <a href="../transit-demo/"><code>apps/transit-demo/</code></a>
+            — BVG lines <strong>100</strong>, <strong>200</strong>, <strong>M41</strong>
+            with VBB GTFS shapes and stops. Static route lines; simulated buses
+            run both directions at ~22&nbsp;km/h (grow 1s at stops). Not live GTFS-RT.
           </p>
         </section>
 
