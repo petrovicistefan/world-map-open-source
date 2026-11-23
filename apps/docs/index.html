@@ -1,62 +1,65 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Documentație — World Map Open Source</title>
+    <title>Docs — World Map Open Source</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="top">
       <div class="brand">
         <a class="logo" href="./index.html">World Map OS</a>
-        <p class="tagline">OpenFreeMap + overlay-uri GeoJSON pe git</p>
+        <p class="tagline">OpenFreeMap + git-native GeoJSON overlays</p>
       </div>
-      <nav class="top-nav" aria-label="Navigare principală">
-        <a href="../demo/">Hartă demo</a>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="../demo/">Demo map</a>
         <a href="https://github.com/petrovicistefan/world-map-open-source">GitHub</a>
       </nav>
     </header>
 
     <div class="layout">
-      <aside class="toc" aria-label="Cuprins">
-        <p class="toc-label">Documentație</p>
+      <aside class="toc" aria-label="Table of contents">
+        <p class="toc-label">Documentation</p>
         <ol>
-          <li><a href="#overview">Prezentare</a></li>
-          <li><a href="#apply">Cum se aplică</a></li>
-          <li><a href="#agents">Cum completează agenții</a></li>
-          <li><a href="#layers">Straturi</a></li>
-          <li><a href="#contribute">Contribuții umane</a></li>
-          <li><a href="#links">Linkuri</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#quickstart">Quick start</a></li>
+          <li><a href="#examples">Examples</a></li>
+          <li><a href="#agents">How agents contribute</a></li>
+          <li><a href="#layers">Layers</a></li>
+          <li><a href="#contribute">Human contributions</a></li>
+          <li><a href="#links">Links</a></li>
         </ol>
-        <a class="cta" href="../demo/">Deschide harta →</a>
+        <a class="cta" href="../demo/">Open the map →</a>
       </aside>
 
       <main class="doc">
         <section id="overview">
-          <h1>Documentație</h1>
+          <h1>Documentation</h1>
           <p class="lede">
-            World Map Open Source este un strat subțire peste
-            <strong>OpenFreeMap</strong> (dale libere) + <strong>MapLibre</strong>.
-            Produsul nu e un tile farm — sunt <em>overlay-uri GeoJSON</em> curate,
-            versionate pe git, pe care oamenii și agenții AI le completează prin PR.
+            World Map Open Source is a thin layer on top of
+            <strong>OpenFreeMap</strong> (free tiles) + <strong>MapLibre</strong>.
+            The product is not a tile farm — it is curated
+            <em>GeoJSON overlays</em>, versioned in git, that people and AI agents
+            extend through pull requests.
           </p>
           <div class="callout">
-            <strong>Baza e gratuită. Straturile curate sunt produsul.</strong>
-            Nu reinventăm OSM: configurăm un style URL OpenFreeMap și încărcăm
-            FeatureCollection-uri din <code>overlays/</code>.
+            <strong>The basemap is free. Curated layers are the product.</strong>
+            We do not reinvent OSM: configure an OpenFreeMap style URL and load
+            FeatureCollections from <code>overlays/</code>. Sample city:
+            <strong>Berlin</strong>.
           </div>
         </section>
 
-        <section id="apply">
-          <h2>Cum se aplică / Quick start</h2>
+        <section id="quickstart">
+          <h2>Quick start</h2>
           <p>
-            Integrezi harta în trei pași: MapLibre + style OpenFreeMap, apoi
-            surse GeoJSON pentru overlay-uri. SDK-ul din <code>packages/sdk</code>
-            rămâne subțire (load / validate) — încă poți copia pattern-ul din demo.
+            Integrate a map in three steps: MapLibre + an OpenFreeMap style, then
+            GeoJSON sources for overlays. The SDK in <code>packages/sdk</code>
+            stays thin (load / validate) — you can also copy the pattern from the demo.
           </p>
 
-          <h3>1. Servește repo-ul local</h3>
+          <h3>1. Serve the repo locally</h3>
           <pre><code>python3 -m http.server 5173
 # Demo:  http://localhost:5173/apps/demo/
 # Docs:  http://localhost:5173/apps/docs/</code></pre>
@@ -67,13 +70,13 @@
 const map = new maplibregl.Map({
   container: "map",
   style: STYLE_URL,
-  center: [26.1, 44.43], // București
+  center: [13.405, 52.52], // Berlin
   zoom: 12,
 });</code></pre>
 
-          <h3>3. Încarcă un overlay</h3>
+          <h3>3. Load an overlay</h3>
           <pre><code class="language-js">map.on("load", async () => {
-  const data = await fetch("../../overlays/places/sample-bucharest.geojson")
+  const data = await fetch("../../overlays/places/sample-berlin.geojson")
     .then((r) => r.json());
 
   map.addSource("places", { type: "geojson", data });
@@ -91,157 +94,558 @@ const map = new maplibregl.Map({
 });</code></pre>
 
           <p>
-            Vezi implementarea completă în
+            Full implementation:
             <a href="../demo/"><code>apps/demo/</code></a>
             (<code>main.js</code> + <code>overlays-config.js</code>).
           </p>
         </section>
 
-        <section id="agents" class="agents">
-          <h2>Cum completează agenții harta</h2>
+        <section id="examples">
+          <h2>Examples</h2>
           <p class="lede-sm">
-            Repo-ul <em>este</em> API-ul: agenții nu scriu într-o bază separată —
-            adaugă / editează fișiere sub <code>overlays/{category}/</code> și
-            deschid un pull request. După merge + CI verde, punctele apar pe demo.
+            Copy-paste patterns for real websites — from a basic embed to
+            store-locator style pages. Complexity is labeled
+            <span class="badge basic">Basic</span>
+            <span class="badge intermediate">Intermediate</span>
+            <span class="badge advanced">Advanced</span>.
           </p>
 
-          <h3>Workflow (pas cu pas)</h3>
+          <!-- 1 -->
+          <article class="example" id="ex-basic-embed">
+            <h3>
+              <span class="badge basic">Basic</span>
+              1. Basic embed
+            </h3>
+            <p>
+              Minimal HTML page: MapLibre CDN + OpenFreeMap Liberty style centered on Berlin.
+            </p>
+            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;Berlin map&lt;/title&gt;
+  &lt;script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"&gt;&lt;/script&gt;
+  &lt;link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" /&gt;
+  &lt;style&gt;html, body, #map { margin: 0; height: 100%; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="map"&gt;&lt;/div&gt;
+  &lt;script&gt;
+    new maplibregl.Map({
+      container: "map",
+      style: "https://tiles.openfreemap.org/styles/liberty",
+      center: [13.405, 52.52],
+      zoom: 12,
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </article>
+
+          <!-- 2 -->
+          <article class="example" id="ex-layer-toggle">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              2. Multi-layer toggle UI
+            </h3>
+            <p>
+              Load all MVP categories and wire checkboxes to layer visibility
+              (same idea as <a href="../demo/">apps/demo</a>).
+            </p>
+            <pre><code class="language-js">const CATEGORIES = [
+  { id: "places",    url: "/overlays/places/sample-berlin.geojson",    color: "#0d6e6e" },
+  { id: "nature",    url: "/overlays/nature/sample-berlin.geojson",    color: "#2f7d32" },
+  { id: "transport", url: "/overlays/transport/sample-berlin.geojson", color: "#1565c0" },
+  { id: "culture",   url: "/overlays/culture/sample-berlin.geojson",   color: "#6a1b9a" },
+  { id: "community", url: "/overlays/community/sample-berlin.geojson", color: "#c62828" },
+];
+
+map.on("load", async () => {
+  for (const cat of CATEGORIES) {
+    const data = await fetch(cat.url).then((r) => r.json());
+    map.addSource(`src-${cat.id}`, { type: "geojson", data });
+    map.addLayer({
+      id: `lyr-${cat.id}`,
+      type: "circle",
+      source: `src-${cat.id}`,
+      paint: {
+        "circle-radius": 7,
+        "circle-color": cat.color,
+        "circle-stroke-width": 1.5,
+        "circle-stroke-color": "#fff",
+      },
+    });
+  }
+
+  document.querySelectorAll("[data-layer]").forEach((input) => {
+    input.addEventListener("change", () => {
+      const id = input.dataset.layer;
+      map.setLayoutProperty(
+        `lyr-${id}`,
+        "visibility",
+        input.checked ? "visible" : "none"
+      );
+    });
+  });
+});
+
+// HTML: &lt;label&gt;&lt;input type="checkbox" data-layer="places" checked /&gt; places&lt;/label&gt;</code></pre>
+          </article>
+
+          <!-- 3 -->
+          <article class="example" id="ex-filter">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              3. Filter by kind / tag
+            </h3>
+            <p>
+              Keep one source, filter the layer with MapLibre expressions — e.g. only
+              cafés, or only nature viewpoints.
+            </p>
+            <pre><code class="language-js">// After adding source "places" and layer "places-circles":
+function showOnlyKind(kind) {
+  map.setFilter("places-circles", kind
+    ? ["==", ["get", "kind"], kind]
+    : null // clear filter = show all
+  );
+}
+
+showOnlyKind("cafe");           // only cafés
+showOnlyKind("drinking_water"); // only fountains
+showOnlyKind(null);             // reset
+
+// Nature viewpoints only:
+map.setFilter("lyr-nature", ["==", ["get", "kind"], "viewpoint"]);</code></pre>
+          </article>
+
+          <!-- 4 -->
+          <article class="example" id="ex-custom-overlay">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              4. Custom app overlay (your CDN)
+            </h3>
+            <p>
+              Load community overlays from this repo <em>and</em> your own GeoJSON
+              from your domain — typical for product pages that mix public + private data.
+            </p>
+            <pre><code class="language-js">const COMMUNITY = "/overlays/places/sample-berlin.geojson";
+const MY_STORES = "https://cdn.example.com/geo/berlin-stores.geojson";
+
+async function addGeoJsonLayer(map, { id, url, color }) {
+  const data = await fetch(url).then((r) => r.json());
+  map.addSource(id, { type: "geojson", data });
+  map.addLayer({
+    id: `${id}-circles`,
+    type: "circle",
+    source: id,
+    paint: {
+      "circle-radius": 8,
+      "circle-color": color,
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "#fff",
+    },
+  });
+}
+
+map.on("load", async () => {
+  await addGeoJsonLayer(map, { id: "community-places", url: COMMUNITY, color: "#0d6e6e" });
+  await addGeoJsonLayer(map, { id: "my-stores", url: MY_STORES, color: "#c45c26" });
+});</code></pre>
+          </article>
+
+          <!-- 5 -->
+          <article class="example" id="ex-popup">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              5. Popup / detail card
+            </h3>
+            <p>
+              Click a feature to show name, id, kind, source, and optional website —
+              attribution-friendly for public maps.
+            </p>
+            <pre><code class="language-js">function bindPopup(map, layerId) {
+  map.on("click", layerId, (e) => {
+    const f = e.features?.[0];
+    if (!f) return;
+    const p = f.properties || {};
+    const site = p.website
+      ? `&lt;br/&gt;&lt;a href="${p.website}" target="_blank" rel="noopener"&gt;Website&lt;/a&gt;`
+      : "";
+    new maplibregl.Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(`
+        &lt;strong&gt;${p.name ?? "Feature"}&lt;/strong&gt;&lt;br/&gt;
+        &lt;code&gt;${p.id ?? ""}&lt;/code&gt;&lt;br/&gt;
+        ${p.category}/${p.kind}&lt;br/&gt;
+        source: ${p.source ?? "—"} · license: ${p.license ?? "—"}
+        ${site}
+      `)
+      .addTo(map);
+  });
+
+  map.on("mouseenter", layerId, () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+  map.on("mouseleave", layerId, () => {
+    map.getCanvas().style.cursor = "";
+  });
+}
+
+bindPopup(map, "places-circles");</code></pre>
+          </article>
+
+          <!-- 6 -->
+          <article class="example" id="ex-deeplink">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              6. Fly-to / deep link
+            </h3>
+            <p>
+              Support <code>?lat=&amp;lon=&amp;zoom=</code> or jump to a feature by
+              <code>?feature=places/berlin-staatsbibliothek</code>.
+            </p>
+            <pre><code class="language-js">function applyDeepLink(map, featureIndex) {
+  const params = new URLSearchParams(location.search);
+  const lat = parseFloat(params.get("lat"));
+  const lon = parseFloat(params.get("lon"));
+  const zoom = parseFloat(params.get("zoom") || "14");
+  const featureId = params.get("feature");
+
+  if (Number.isFinite(lat) && Number.isFinite(lon)) {
+    map.flyTo({ center: [lon, lat], zoom, essential: true });
+    return;
+  }
+
+  if (featureId && featureIndex[featureId]) {
+    const [lng, lat2] = featureIndex[featureId];
+    map.flyTo({ center: [lng, lat2], zoom: 15, essential: true });
+  }
+}
+
+// Build an id → [lng, lat] index while loading overlays:
+const featureIndex = {};
+for (const f of data.features) {
+  featureIndex[f.properties.id] = f.geometry.coordinates;
+}
+
+map.on("load", () => applyDeepLink(map, featureIndex));
+
+// Examples:
+//   ?lat=52.52&amp;lon=13.405&amp;zoom=13
+//   ?feature=places/berlin-staatsbibliothek</code></pre>
+          </article>
+
+          <!-- 7 -->
+          <article class="example" id="ex-react">
+            <h3>
+              <span class="badge advanced">Advanced</span>
+              7. React / Next sketch
+            </h3>
+            <p>
+              Thin client component: mount MapLibre once, load Berlin places on load.
+              Works in Next.js with <code>"use client"</code>.
+            </p>
+            <pre><code class="language-jsx">"use client";
+import { useEffect, useRef } from "react";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+
+const STYLE = "https://tiles.openfreemap.org/styles/liberty";
+const PLACES = "/overlays/places/sample-berlin.geojson";
+
+export function BerlinMap() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const map = new maplibregl.Map({
+      container: ref.current,
+      style: STYLE,
+      center: [13.405, 52.52],
+      zoom: 12,
+    });
+
+    map.on("load", async () => {
+      const data = await fetch(PLACES).then((r) => r.json());
+      map.addSource("places", { type: "geojson", data });
+      map.addLayer({
+        id: "places",
+        type: "circle",
+        source: "places",
+        paint: {
+          "circle-radius": 7,
+          "circle-color": "#0d6e6e",
+          "circle-stroke-width": 1.5,
+          "circle-stroke-color": "#fff",
+        },
+      });
+    });
+
+    return () => map.remove();
+  }, []);
+
+  return &lt;div ref={ref} style={{ width: "100%", height: "480px" }} /&gt;;
+}</code></pre>
+          </article>
+
+          <!-- 8 -->
+          <article class="example" id="ex-styled-markers">
+            <h3>
+              <span class="badge intermediate">Intermediate</span>
+              8. Styled marker colors by category
+            </h3>
+            <p>
+              One merged FeatureCollection (or several sources) with data-driven
+              <code>circle-color</code> from <code>properties.category</code>.
+            </p>
+            <pre><code class="language-js">map.addLayer({
+  id: "all-overlays",
+  type: "circle",
+  source: "merged",
+  paint: {
+    "circle-radius": [
+      "interpolate", ["linear"], ["zoom"],
+      10, 4,
+      14, 8,
+    ],
+    "circle-color": [
+      "match", ["get", "category"],
+      "places", "#0d6e6e",
+      "nature", "#2f7d32",
+      "transport", "#1565c0",
+      "culture", "#6a1b9a",
+      "community", "#c62828",
+      "#555555",
+    ],
+    "circle-stroke-width": 1.5,
+    "circle-stroke-color": "#ffffff",
+  },
+});</code></pre>
+          </article>
+
+          <!-- 9 -->
+          <article class="example" id="ex-store-locator">
+            <h3>
+              <span class="badge advanced">Advanced</span>
+              9. Basemap + private business locations (store locator)
+            </h3>
+            <p>
+              Pattern for a company page: free OpenFreeMap base, public community
+              context optional, and your private store GeoJSON with a sidebar list
+              that flies to the selected pin.
+            </p>
+            <pre><code class="language-js">const STORES = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [13.388, 52.517] },
+      properties: {
+        id: "store/berlin-mitte",
+        name: "Flagship — Mitte",
+        hours: "10:00–20:00",
+        category: "stores",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [13.455, 52.501] },
+      properties: {
+        id: "store/berlin-kreuzberg",
+        name: "Shop — Kreuzberg",
+        hours: "11:00–19:00",
+        category: "stores",
+      },
+    },
+  ],
+};
+
+map.on("load", () => {
+  map.addSource("stores", { type: "geojson", data: STORES });
+  map.addLayer({
+    id: "stores",
+    type: "circle",
+    source: "stores",
+    paint: {
+      "circle-radius": 10,
+      "circle-color": "#c45c26",
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "#fff",
+    },
+  });
+
+  const list = document.getElementById("store-list");
+  for (const f of STORES.features) {
+    const li = document.createElement("li");
+    li.textContent = `${f.properties.name} · ${f.properties.hours}`;
+    li.tabIndex = 0;
+    li.addEventListener("click", () => {
+      map.flyTo({ center: f.geometry.coordinates, zoom: 15 });
+    });
+    list.appendChild(li);
+  }
+});
+
+// Optional: also load public overlays for neighbourhood context
+// await addGeoJsonLayer(map, { id: "places", url: ".../sample-berlin.geojson", color: "#0d6e6e" });</code></pre>
+          </article>
+
+          <h3>More ideas (not fully coded)</h3>
+          <ul class="ideas">
+            <li>Cluster large pin sets with <code>supercluster</code> or MapLibre cluster options</li>
+            <li>Draw a walking / bike route LineString overlay on top of points</li>
+            <li>Time-aware filter (<code>opening_hours</code> → open now)</li>
+            <li>Offline / PWA cache of GeoJSON for field surveys</li>
+            <li>Sidebar search by <code>name</code> / <code>kind</code> with live filter</li>
+            <li>Export selected features as a downloadable GeoJSON for partners</li>
+          </ul>
+        </section>
+
+        <section id="agents" class="agents">
+          <h2>How agents contribute to the map</h2>
+          <p class="lede-sm">
+            The repo <em>is</em> the API: agents do not write to a separate database —
+            they add or edit files under <code>overlays/{category}/</code> and open a
+            pull request. After merge + green CI, pins appear on the demo.
+          </p>
+
+          <h3>Workflow (step by step)</h3>
           <ol class="steps">
             <li>
-              <strong>Citește skill-ul</strong> —
+              <strong>Read the skill</strong> —
               <code>.cursor/skills/add-overlay/</code>
               (SKILL.md + reference.md + examples.md).
             </li>
             <li>
-              <strong>Alege categoria</strong> MVP:
+              <strong>Pick an MVP category</strong>:
               <code>places</code> · <code>nature</code> · <code>transport</code> ·
               <code>culture</code> · <code>community</code>.
             </li>
             <li>
-              <strong>Adaugă / editează</strong>
+              <strong>Add / edit</strong>
               <code>overlays/&lt;category&gt;/&lt;dataset&gt;.geojson</code>
-              (+ opțional <code>.meta.yaml</code>).
+              (+ optional <code>.meta.yaml</code>).
             </li>
             <li>
-              <strong>Validează</strong> față de
-              <code>schemas/overlay.schema.json</code> (CI face același check).
+              <strong>Validate</strong> against
+              <code>schemas/overlay.schema.json</code> (CI runs the same check).
             </li>
             <li>
-              <strong>Deschide PR</strong> — pentru
-              <code>community</code> marchează draft /
+              <strong>Open a PR</strong> — for
+              <code>community</code> mark draft /
               <code>needs-human-review</code>.
             </li>
             <li>
-              <strong>După merge</strong> overlay-ul e pe git; demo-ul îl încarcă
-              din path-urile din manifest.
+              <strong>After merge</strong> the overlay lives on git; the demo loads
+              it from paths in the manifest.
             </li>
           </ol>
 
-          <h3>Convenții de fișiere</h3>
+          <h3>File conventions</h3>
           <pre><code>overlays/
   places/
-    sample-bucharest.geojson   # FeatureCollection (obligatoriu)
-    sample-bucharest.meta.yaml # metadate dataset (recomandat)
-    README.md                  # kinds + scop categorie</code></pre>
+    sample-berlin.geojson   # FeatureCollection (required)
+    sample-berlin.meta.yaml # dataset metadata (recommended)
+    README.md               # kinds + category scope</code></pre>
 
           <p>
-            Fiecare <code>.geojson</code> e un <strong>FeatureCollection</strong>.
-            Companionul <code>.meta.yaml</code> descrie provenance / city / note
-            pentru revieweri (nu e încă validat de CI).
+            Each <code>.geojson</code> is a <strong>FeatureCollection</strong>.
+            The companion <code>.meta.yaml</code> describes provenance / city / notes
+            for reviewers (not yet validated by CI).
           </p>
-          <pre><code class="language-yaml"># sample-bucharest.meta.yaml
-id: places-bucharest-sample
+          <pre><code class="language-yaml"># sample-berlin.meta.yaml
+id: places-berlin-sample
 category: places
-city: Bucharest
+city: Berlin
 license: ODbL-1.0
 notes: Sample pins for the MapLibre demo.</code></pre>
 
-          <h3>ID stabil</h3>
+          <h3>Stable IDs</h3>
           <p>
-            Fiecare feature are <code>properties.id</code> unic în tot repo-ul.
-            Format MVP (namespace = categorie):
+            Every feature has a repo-wide unique <code>properties.id</code>.
+            MVP format (namespace = category):
           </p>
           <pre><code>{category}/{slug}
-# ex: places/bucharest-cismigiu-drinking-water
-#     community/bucharest-repair-cafe-draft</code></pre>
+# e.g. places/berlin-brandenburg-gate-drinking-water
+#      community/berlin-kreuzberg-repair-cafe</code></pre>
           <p>
-            kebab-case, fără spații. Schema acceptă separatorii
+            kebab-case, no spaces. The schema allows separators
             <code>/</code>, <code>_</code>, <code>-</code>.
-            Pentru app-uri viitoare, namespace-urile vor trăi sub
+            For future apps, namespaces will live under
             <code>overlays/_ns/&lt;app-id&gt;/</code>.
           </p>
 
-          <h3>Exemplu minimal (copy-paste pentru agent)</h3>
+          <h3>Minimal example (copy-paste for agents)</h3>
           <pre><code class="language-json">{
   "type": "FeatureCollection",
-  "name": "places-my-city",
+  "name": "places-berlin-sample",
   "features": [
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [26.0910, 44.4368]
+        "coordinates": [13.3777, 52.5163]
       },
       "properties": {
-        "id": "places/bucharest-cismigiu-drinking-water",
-        "name": "Drinking fountain — Cișmigiu",
+        "id": "places/berlin-brandenburg-gate-drinking-water",
+        "name": "Drinking fountain — Brandenburg Gate",
         "category": "places",
         "kind": "drinking_water",
         "source": "agent",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Bucharest" }
+        "extra": { "city": "Berlin" }
       }
     }
   ]
 }</code></pre>
           <ul class="checklist">
-            <li>Coordonate GeoJSON: <code>[longitude, latitude]</code></li>
+            <li>GeoJSON coordinates: <code>[longitude, latitude]</code></li>
             <li>
-              Câmpuri obligatorii:
+              Required fields:
               <code>id</code>, <code>name</code>, <code>category</code>,
               <code>kind</code>, <code>source</code>, <code>license</code>
             </li>
             <li>
-              <code>category</code> = numele folderului părinte
+              <code>category</code> = parent folder name
             </li>
             <li>
-              Drafturi AI: <code>source: "agent"</code>
+              AI drafts: <code>source: "agent"</code>
             </li>
           </ul>
 
-          <h3>Validare &amp; CI</h3>
+          <h3>Validation &amp; CI</h3>
           <p>
-            Workflow-ul
-            <code>.github/workflows/validate-overlays.yml</code> rulează pe PR:
+            Workflow
+            <code>.github/workflows/validate-overlays.yml</code> runs on PRs:
           </p>
           <ul>
             <li>
-              Fiecare <code>overlays/**/*.geojson</code> trebuie să treacă
+              Every <code>overlays/**/*.geojson</code> must pass
               <code>schemas/overlay.schema.json</code>
             </li>
-            <li><code>properties.id</code> unic în tot repo-ul</li>
+            <li><code>properties.id</code> unique across the whole repo</li>
             <li>
-              Local (opțional):
+              Local (optional):
               <code>npx --yes ajv-cli validate -s schemas/overlay.schema.json -d "overlays/**/*.geojson"</code>
             </li>
           </ul>
 
-          <h3>Ce agenții NU trebuie să facă</h3>
+          <h3>What agents must NOT do</h3>
           <ul class="dont">
-            <li>Nu hosta / nu copia dale planetare sau dump-uri OSM în repo</li>
-            <li>Nu inventa o bază paralelă „OSM-like” — doar overlay-uri curate</li>
-            <li>Nu face force-push pe <code>main</code></li>
+            <li>Do not host or copy planetary tiles / OSM dumps into the repo</li>
+            <li>Do not invent a parallel “OSM-like” database — curated overlays only</li>
+            <li>Do not force-push <code>main</code></li>
             <li>
-              Nu merge automat <code>community</code> (sau viitorul
-              <code>hazards</code>) — doar draft + review uman
+              Do not auto-merge <code>community</code> (or future
+              <code>hazards</code>) — draft + human review only
             </li>
-            <li>Nu stoca PII (telefoane private, adrese de casă)</li>
-            <li>Nu commit / push fără cererea explicită a utilizatorului</li>
+            <li>Do not store PII (private phones, home addresses)</li>
+            <li>Do not commit / push without the user’s explicit request</li>
           </ul>
 
           <div class="callout accent">
-            <strong>Ghiduri oficiale pentru agenți</strong>
+            <strong>Official agent guides</strong>
             <ul>
               <li>
                 Skill:
@@ -250,13 +654,13 @@ notes: Sample pins for the MapLibre demo.</code></pre>
                 >
               </li>
               <li>
-                Reguli:
+                Rules:
                 <code>.cursor/rules/project-core.mdc</code>,
                 <code>overlay-schema.mdc</code>,
                 <code>no-reinvent-osm.mdc</code>
               </li>
               <li>
-                Oameni:
+                Humans:
                 <a href="../../CONTRIBUTING.md">CONTRIBUTING.md</a>
               </li>
               <li>
@@ -268,76 +672,76 @@ notes: Sample pins for the MapLibre demo.</code></pre>
         </section>
 
         <section id="layers">
-          <h2>Straturi / categorii</h2>
+          <h2>Layers / categories</h2>
           <table>
             <thead>
               <tr>
                 <th>Folder</th>
-                <th>Temă</th>
-                <th>Exemple <code>kind</code></th>
+                <th>Theme</th>
+                <th>Example <code>kind</code> values</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>places</code></td>
-                <td>Amenități</td>
+                <td>Amenities</td>
                 <td>drinking_water, toilet, library, cafe</td>
               </tr>
               <tr>
                 <td><code>nature</code></td>
-                <td>Exterior</td>
+                <td>Outdoors</td>
                 <td>viewpoint, trailhead, picnic, swim</td>
               </tr>
               <tr>
                 <td><code>transport</code></td>
-                <td>Mobilitate</td>
+                <td>Mobility</td>
                 <td>bike_parking, ev_charger, micromobility</td>
               </tr>
               <tr>
                 <td><code>culture</code></td>
-                <td>Cultură</td>
+                <td>Culture</td>
                 <td>mural, venue, memorial, exhibition</td>
               </tr>
               <tr>
                 <td><code>community</code></td>
-                <td>Comunitate (review uman)</td>
+                <td>Community (human review)</td>
                 <td>mutual_aid, repair_cafe, free_wifi</td>
               </tr>
             </tbody>
           </table>
           <p>
-            Taxonomie completă și roadmap:
+            Full taxonomy and roadmap:
             <a href="../../docs/PLAN.md">docs/PLAN.md</a>.
           </p>
         </section>
 
         <section id="contribute">
-          <h2>Contribuții umane</h2>
+          <h2>Human contributions</h2>
           <p>
-            Același model ca pentru agenți: editezi GeoJSON sub
-            <code>overlays/</code>, deschizi PR, CI validează.
-            Vezi pașii detaliați în
+            Same model as for agents: edit GeoJSON under
+            <code>overlays/</code>, open a PR, CI validates.
+            Detailed steps in
             <a href="../../CONTRIBUTING.md">CONTRIBUTING.md</a>.
           </p>
           <ol>
-            <li>Alege folderul de categorie</li>
+            <li>Pick a category folder</li>
             <li>
-              Adaugă feature cu
+              Add a feature with
               <code>id</code>, <code>name</code>, <code>category</code>,
               <code>kind</code>, <code>source</code>, <code>license</code>
             </li>
             <li>
-              Pentru <code>community</code>: label
+              For <code>community</code>: label
               <code>needs-human-review</code>
             </li>
           </ol>
         </section>
 
         <section id="links">
-          <h2>Linkuri</h2>
+          <h2>Links</h2>
           <ul class="links">
             <li>
-              <a href="../demo/">Demo hartă (MapLibre)</a>
+              <a href="../demo/">Demo map (MapLibre)</a>
             </li>
             <li>
               <a href="../../README.md">README</a>
@@ -346,12 +750,12 @@ notes: Sample pins for the MapLibre demo.</code></pre>
               <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>
             </li>
             <li>
-              <a href="../../docs/PLAN.md">Plan produs</a>
+              <a href="../../docs/PLAN.md">Product plan</a>
             </li>
             <li>
               <a
                 href="https://github.com/petrovicistefan/world-map-open-source"
-                >Repo GitHub</a
+                >GitHub repo</a
               >
             </li>
             <li>

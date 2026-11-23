@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "name": "places-berlin-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3777, 52.5163]
+      },
+      "properties": {
+        "id": "places/berlin-brandenburg-gate-drinking-water",
+        "name": "Drinking fountain — Brandenburg Gate",
+        "category": "places",
+        "kind": "drinking_water",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "tags": ["water", "tourist"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3909, 52.5074]
+      },
+      "properties": {
+        "id": "places/berlin-staatsbibliothek",
+        "name": "Staatsbibliothek zu Berlin",
+        "category": "places",
+        "kind": "library",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://staatsbibliothek-berlin.de/",
+        "extra": { "city": "Berlin" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4012, 52.5271]
+      },
+      "properties": {
+        "id": "places/berlin-cafe-rosenthaler",
+        "name": "Neighbourhood café — Rosenthaler Platz",
+        "category": "places",
+        "kind": "cafe",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "opening_hours": "Mo-Fr 08:00-18:00; Sa-Su 09:00-17:00",
+        "extra": { "city": "Berlin", "tags": ["cafe", "wifi"] }
+      }
+    }
+  ]
+}

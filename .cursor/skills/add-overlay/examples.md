@@ -1,6 +1,6 @@
 # Overlay examples
 
-## Single drinking water point
+## Single drinking water point (Berlin)
 
 ```json
 {
@@ -10,17 +10,17 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [26.0910, 44.4368]
+        "coordinates": [13.3777, 52.5163]
       },
       "properties": {
-        "id": "places/bucharest-cismigiu-drinking-water",
-        "name": "Drinking fountain — Cișmigiu",
+        "id": "places/berlin-brandenburg-gate-drinking-water",
+        "name": "Drinking fountain — Brandenburg Gate",
         "category": "places",
         "kind": "drinking_water",
         "source": "survey",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Bucharest" }
+        "extra": { "city": "Berlin" }
       }
     }
   ]
@@ -32,15 +32,15 @@
 ```json
 {
   "type": "Feature",
-  "geometry": { "type": "Point", "coordinates": [26.1025, 44.4268] },
+  "geometry": { "type": "Point", "coordinates": [13.4058, 52.4989] },
   "properties": {
-    "id": "community/bucharest-repair-cafe-draft",
-    "name": "Repair Café (draft)",
+    "id": "community/berlin-kreuzberg-repair-cafe",
+    "name": "Repair Café Kreuzberg (draft)",
     "category": "community",
     "kind": "repair_cafe",
     "source": "agent",
     "license": "ODbL-1.0",
-    "extra": { "needs_review": true }
+    "extra": { "needs_review": true, "city": "Berlin" }
   }
 }
 ```

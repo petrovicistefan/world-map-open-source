@@ -1,10 +1,10 @@
 /** MVP overlay manifest — paths relative to apps/demo/ (serve repo root). */
 export const OVERLAY_MANIFEST = [
-  { id: "places", url: "../../overlays/places/sample-bucharest.geojson" },
-  { id: "nature", url: "../../overlays/nature/sample-bucharest.geojson" },
-  { id: "transport", url: "../../overlays/transport/sample-bucharest.geojson" },
-  { id: "culture", url: "../../overlays/culture/sample-bucharest.geojson" },
-  { id: "community", url: "../../overlays/community/sample-bucharest.geojson" },
+  { id: "places", url: "../../overlays/places/sample-berlin.geojson" },
+  { id: "nature", url: "../../overlays/nature/sample-berlin.geojson" },
+  { id: "transport", url: "../../overlays/transport/sample-berlin.geojson" },
+  { id: "culture", url: "../../overlays/culture/sample-berlin.geojson" },
+  { id: "community", url: "../../overlays/community/sample-berlin.geojson" },
 ];
 
 const COLORS = {

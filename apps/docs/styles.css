@@ -158,6 +158,59 @@ a:hover {
   font-size: 1.1rem;
 }
 
+.example {
+  margin: 1.5rem 0 2rem;
+  max-width: var(--max);
+}
+
+.example h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+}
+
+.badge {
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.badge.basic {
+  background: #e4f0ea;
+  border-color: #9cbcab;
+  color: #1e5c3a;
+}
+
+.badge.intermediate {
+  background: #e8eef6;
+  border-color: #9aafc8;
+  color: #1e3f6b;
+}
+
+.badge.advanced {
+  background: #f3e8e4;
+  border-color: #c9a090;
+  color: #6b2e1e;
+}
+
+.ideas {
+  max-width: var(--max);
+}
+
+.ideas li {
+  margin-bottom: 0.35rem;
+}
+
 .doc p,
 .doc li {
   line-height: 1.55;

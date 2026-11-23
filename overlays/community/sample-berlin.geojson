@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "name": "community-berlin-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4058, 52.4989]
+      },
+      "properties": {
+        "id": "community/berlin-kreuzberg-repair-cafe",
+        "name": "Repair Café Kreuzberg (sample — verify before publishing)",
+        "category": "community",
+        "kind": "repair_cafe",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Kreuzberg"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4285, 52.5088]
+      },
+      "properties": {
+        "id": "community/berlin-friedrichshain-free-wifi",
+        "name": "Community free Wi‑Fi spot (sample)",
+        "category": "community",
+        "kind": "free_wifi",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Friedrichshain"
+        }
+      }
+    }
+  ]
+}

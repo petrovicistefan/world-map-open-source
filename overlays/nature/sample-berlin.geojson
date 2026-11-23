@@ -1,0 +1,40 @@
+{
+  "type": "FeatureCollection",
+  "name": "nature-berlin-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4035, 52.4732]
+      },
+      "properties": {
+        "id": "nature/berlin-tempelhofer-feld-viewpoint",
+        "name": "Tempelhofer Feld — runway viewpoint",
+        "category": "nature",
+        "kind": "viewpoint",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "tags": ["park", "open-space"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3505, 52.5142]
+      },
+      "properties": {
+        "id": "nature/berlin-tiergarten-picnic",
+        "name": "Tiergarten picnic lawn",
+        "category": "nature",
+        "kind": "picnic",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin" }
+      }
+    }
+  ]
+}

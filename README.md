@@ -1,8 +1,12 @@
 # World Map Open Source
 
+![World Map Open Source preview](docs/assets/og-preview.png)
+
 Collaborative, **git-native GeoJSON overlays** on top of **OpenFreeMap** + **MapLibre**.
 
 We do **not** rebuild OSM or run a tile farm. The basemap is free; curated layers are the product.
+
+> Preview asset: [`docs/assets/og-preview.png`](docs/assets/og-preview.png) (1280×720) — suitable for GitHub README and future Open Graph / Pages social cards.
 
 ## Quick start (demo)
 
@@ -16,7 +20,7 @@ python3 -m http.server 5173
 
 The demo loads OpenFreeMap as the base style and toggles MVP overlay categories from `overlays/`.
 
-**Documentație (RO):** [apps/docs/](apps/docs/) — prezentare, cum se aplică, și **cum completează agenții AI harta** (workflow PR + schema + exemplu GeoJSON).
+**Docs (EN):** [apps/docs/](apps/docs/) — overview, quick start, **rich integration examples**, and **how AI agents contribute** (PR workflow + schema + GeoJSON). Sample city: **Berlin**.
 
 ## MVP overlay categories
 

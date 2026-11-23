@@ -29,10 +29,10 @@ id, name, category, kind, source, license
 
 ```json
 // ✅ GOOD
-{ "properties": { "id": "places/bucharest-cișmigiu-water", "category": "places", "kind": "drinking_water", "source": "survey", "license": "ODbL-1.0", "name": "…" } }
+{ "properties": { "id": "places/berlin-brandenburg-gate-drinking-water", "category": "places", "kind": "drinking_water", "source": "survey", "license": "ODbL-1.0", "name": "…" } }
 
 // ❌ BAD — missing id/category; private phone in properties
-{ "properties": { "name": "My house", "phone": "+40…" } }
+{ "properties": { "name": "My house", "phone": "+49…" } }
 ```
 
 Validate against `schemas/overlay.schema.json` before finishing.

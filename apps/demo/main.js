@@ -5,7 +5,7 @@ const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
 const map = new maplibregl.Map({
   container: "map",
   style: STYLE_URL,
-  center: [26.1, 44.43],
+  center: [13.405, 52.52],
   zoom: 12,
 });
 

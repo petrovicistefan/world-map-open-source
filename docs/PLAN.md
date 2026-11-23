@@ -125,8 +125,8 @@ community:   mutual_aid | tool_library | repair_cafe | cooling_center | free_wif
   "type": "Feature",
   "geometry": { "type": "Point", "coordinates": [lon, lat] },
   "properties": {
-    "id": "places/bucharest-free-water-01",
-    "name": "Drinking fountain — Cișmigiu",
+    "id": "places/berlin-brandenburg-gate-drinking-water",
+    "name": "Drinking fountain — Brandenburg Gate",
     "category": "places",
     "kind": "drinking_water",
     "source": "survey|osm-gap|agent|import",
@@ -150,7 +150,7 @@ Rules:
 overlays/
   places/
     README.md                 # category purpose + kinds
-    sample-bucharest.geojson  # MVP sample
+    sample-berlin.geojson     # MVP sample
   nature/
   transport/
   culture/

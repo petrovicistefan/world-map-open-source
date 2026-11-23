@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "name": "culture-berlin-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4395, 52.5052]
+      },
+      "properties": {
+        "id": "culture/berlin-east-side-gallery",
+        "name": "East Side Gallery mural stretch",
+        "category": "culture",
+        "kind": "mural",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.eastsidegalleryberlin.de/",
+        "extra": { "city": "Berlin", "note": "Iconic open-air gallery along the Spree" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3969, 52.5211]
+      },
+      "properties": {
+        "id": "culture/berlin-museum-island",
+        "name": "Museum Island — visitor plaza",
+        "category": "culture",
+        "kind": "venue",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.museumsinsel-berlin.de/",
+        "extra": { "city": "Berlin", "tags": ["museum", "unesco"] }
+      }
+    }
+  ]
+}
