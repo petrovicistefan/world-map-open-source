@@ -21,7 +21,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   color: var(--ink);
   background:
     radial-gradient(ellipse 80% 50% at 10% -10%, #dfe8f0 0%, transparent 55%),
@@ -172,7 +172,7 @@ a:hover {
 
 .badge {
   display: inline-block;
-  font-family: system-ui, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.04em;
@@ -283,7 +283,7 @@ pre {
 }
 
 pre code {
-  font-family: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-family: "Roboto Mono", ui-monospace, monospace;
   white-space: pre;
 }
 
@@ -293,7 +293,7 @@ pre code {
   right: 0.45rem;
   font: inherit;
   font-size: 0.72rem;
-  font-family: system-ui, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   padding: 0.2rem 0.45rem;
   border: 1px solid #4a6068;
   border-radius: 3px;
@@ -330,7 +330,7 @@ th {
 }
 
 code:not(pre code) {
-  font-family: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-family: "Roboto Mono", ui-monospace, monospace;
   font-size: 0.86em;
   background: rgba(26, 35, 50, 0.06);
   padding: 0.08em 0.28em;
