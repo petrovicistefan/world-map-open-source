@@ -10,10 +10,13 @@ Serve the **repo root** so overlay GeoJSON paths resolve:
 
 ```bash
 python3 -m http.server 5173
-# open http://localhost:5173/apps/demo/
+# Demo:  http://localhost:5173/apps/demo/
+# Docs:  http://localhost:5173/apps/docs/
 ```
 
 The demo loads OpenFreeMap as the base style and toggles MVP overlay categories from `overlays/`.
+
+**Documentație (RO):** [apps/docs/](apps/docs/) — prezentare, cum se aplică, și **cum completează agenții AI harta** (workflow PR + schema + exemplu GeoJSON).
 
 ## MVP overlay categories
 
@@ -37,6 +40,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Agents: use `.cursor/skills/add-overlay`
 overlays/     curated GeoJSON by category
 schemas/      JSON Schema for overlays
 apps/demo/    MapLibre layer switcher demo
+apps/docs/    Documentation UI (integrate + agent workflow)
 packages/sdk/ thin load/validate helpers (stub)
 docs/PLAN.md  product plan
 .cursor/      shared rules + skills for AI agents

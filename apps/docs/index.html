@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Documentație — World Map Open Source</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <a class="logo" href="./index.html">World Map OS</a>
+        <p class="tagline">OpenFreeMap + overlay-uri GeoJSON pe git</p>
+      </div>
+      <nav class="top-nav" aria-label="Navigare principală">
+        <a href="../demo/">Hartă demo</a>
+        <a href="https://github.com/petrovicistefan/world-map-open-source">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <aside class="toc" aria-label="Cuprins">
+        <p class="toc-label">Documentație</p>
+        <ol>
+          <li><a href="#overview">Prezentare</a></li>
+          <li><a href="#apply">Cum se aplică</a></li>
+          <li><a href="#agents">Cum completează agenții</a></li>
+          <li><a href="#layers">Straturi</a></li>
+          <li><a href="#contribute">Contribuții umane</a></li>
+          <li><a href="#links">Linkuri</a></li>
+        </ol>
+        <a class="cta" href="../demo/">Deschide harta →</a>
+      </aside>
+
+      <main class="doc">
+        <section id="overview">
+          <h1>Documentație</h1>
+          <p class="lede">
+            World Map Open Source este un strat subțire peste
+            <strong>OpenFreeMap</strong> (dale libere) + <strong>MapLibre</strong>.
+            Produsul nu e un tile farm — sunt <em>overlay-uri GeoJSON</em> curate,
+            versionate pe git, pe care oamenii și agenții AI le completează prin PR.
+          </p>
+          <div class="callout">
+            <strong>Baza e gratuită. Straturile curate sunt produsul.</strong>
+            Nu reinventăm OSM: configurăm un style URL OpenFreeMap și încărcăm
+            FeatureCollection-uri din <code>overlays/</code>.
+          </div>
+        </section>
+
+        <section id="apply">
+          <h2>Cum se aplică / Quick start</h2>
+          <p>
+            Integrezi harta în trei pași: MapLibre + style OpenFreeMap, apoi
+            surse GeoJSON pentru overlay-uri. SDK-ul din <code>packages/sdk</code>
+            rămâne subțire (load / validate) — încă poți copia pattern-ul din demo.
+          </p>
+
+          <h3>1. Servește repo-ul local</h3>
+          <pre><code>python3 -m http.server 5173
+# Demo:  http://localhost:5173/apps/demo/
+# Docs:  http://localhost:5173/apps/docs/</code></pre>
+
+          <h3>2. MapLibre + OpenFreeMap</h3>
+          <pre><code class="language-js">const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: STYLE_URL,
+  center: [26.1, 44.43], // București
+  zoom: 12,
+});</code></pre>
+
+          <h3>3. Încarcă un overlay</h3>
+          <pre><code class="language-js">map.on("load", async () => {
+  const data = await fetch("../../overlays/places/sample-bucharest.geojson")
+    .then((r) => r.json());
+
+  map.addSource("places", { type: "geojson", data });
+  map.addLayer({
+    id: "places-circles",
+    type: "circle",
+    source: "places",
+    paint: {
+      "circle-radius": 7,
+      "circle-color": "#0d6e6e",
+      "circle-stroke-width": 1.5,
+      "circle-stroke-color": "#fff",
+    },
+  });
+});</code></pre>
+
+          <p>
+            Vezi implementarea completă în
+            <a href="../demo/"><code>apps/demo/</code></a>
+            (<code>main.js</code> + <code>overlays-config.js</code>).
+          </p>
+        </section>
+
+        <section id="agents" class="agents">
+          <h2>Cum completează agenții harta</h2>
+          <p class="lede-sm">
+            Repo-ul <em>este</em> API-ul: agenții nu scriu într-o bază separată —
+            adaugă / editează fișiere sub <code>overlays/{category}/</code> și
+            deschid un pull request. După merge + CI verde, punctele apar pe demo.
+          </p>
+
+          <h3>Workflow (pas cu pas)</h3>
+          <ol class="steps">
+            <li>
+              <strong>Citește skill-ul</strong> —
+              <code>.cursor/skills/add-overlay/</code>
+              (SKILL.md + reference.md + examples.md).
+            </li>
+            <li>
+              <strong>Alege categoria</strong> MVP:
+              <code>places</code> · <code>nature</code> · <code>transport</code> ·
+              <code>culture</code> · <code>community</code>.
+            </li>
+            <li>
+              <strong>Adaugă / editează</strong>
+              <code>overlays/&lt;category&gt;/&lt;dataset&gt;.geojson</code>
+              (+ opțional <code>.meta.yaml</code>).
+            </li>
+            <li>
+              <strong>Validează</strong> față de
+              <code>schemas/overlay.schema.json</code> (CI face același check).
+            </li>
+            <li>
+              <strong>Deschide PR</strong> — pentru
+              <code>community</code> marchează draft /
+              <code>needs-human-review</code>.
+            </li>
+            <li>
+              <strong>După merge</strong> overlay-ul e pe git; demo-ul îl încarcă
+              din path-urile din manifest.
+            </li>
+          </ol>
+
+          <h3>Convenții de fișiere</h3>
+          <pre><code>overlays/
+  places/
+    sample-bucharest.geojson   # FeatureCollection (obligatoriu)
+    sample-bucharest.meta.yaml # metadate dataset (recomandat)
+    README.md                  # kinds + scop categorie</code></pre>
+
+          <p>
+            Fiecare <code>.geojson</code> e un <strong>FeatureCollection</strong>.
+            Companionul <code>.meta.yaml</code> descrie provenance / city / note
+            pentru revieweri (nu e încă validat de CI).
+          </p>
+          <pre><code class="language-yaml"># sample-bucharest.meta.yaml
+id: places-bucharest-sample
+category: places
+city: Bucharest
+license: ODbL-1.0
+notes: Sample pins for the MapLibre demo.</code></pre>
+
+          <h3>ID stabil</h3>
+          <p>
+            Fiecare feature are <code>properties.id</code> unic în tot repo-ul.
+            Format MVP (namespace = categorie):
+          </p>
+          <pre><code>{category}/{slug}
+# ex: places/bucharest-cismigiu-drinking-water
+#     community/bucharest-repair-cafe-draft</code></pre>
+          <p>
+            kebab-case, fără spații. Schema acceptă separatorii
+            <code>/</code>, <code>_</code>, <code>-</code>.
+            Pentru app-uri viitoare, namespace-urile vor trăi sub
+            <code>overlays/_ns/&lt;app-id&gt;/</code>.
+          </p>
+
+          <h3>Exemplu minimal (copy-paste pentru agent)</h3>
+          <pre><code class="language-json">{
+  "type": "FeatureCollection",
+  "name": "places-my-city",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.0910, 44.4368]
+      },
+      "properties": {
+        "id": "places/bucharest-cismigiu-drinking-water",
+        "name": "Drinking fountain — Cișmigiu",
+        "category": "places",
+        "kind": "drinking_water",
+        "source": "agent",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Bucharest" }
+      }
+    }
+  ]
+}</code></pre>
+          <ul class="checklist">
+            <li>Coordonate GeoJSON: <code>[longitude, latitude]</code></li>
+            <li>
+              Câmpuri obligatorii:
+              <code>id</code>, <code>name</code>, <code>category</code>,
+              <code>kind</code>, <code>source</code>, <code>license</code>
+            </li>
+            <li>
+              <code>category</code> = numele folderului părinte
+            </li>
+            <li>
+              Drafturi AI: <code>source: "agent"</code>
+            </li>
+          </ul>
+
+          <h3>Validare &amp; CI</h3>
+          <p>
+            Workflow-ul
+            <code>.github/workflows/validate-overlays.yml</code> rulează pe PR:
+          </p>
+          <ul>
+            <li>
+              Fiecare <code>overlays/**/*.geojson</code> trebuie să treacă
+              <code>schemas/overlay.schema.json</code>
+            </li>
+            <li><code>properties.id</code> unic în tot repo-ul</li>
+            <li>
+              Local (opțional):
+              <code>npx --yes ajv-cli validate -s schemas/overlay.schema.json -d "overlays/**/*.geojson"</code>
+            </li>
+          </ul>
+
+          <h3>Ce agenții NU trebuie să facă</h3>
+          <ul class="dont">
+            <li>Nu hosta / nu copia dale planetare sau dump-uri OSM în repo</li>
+            <li>Nu inventa o bază paralelă „OSM-like” — doar overlay-uri curate</li>
+            <li>Nu face force-push pe <code>main</code></li>
+            <li>
+              Nu merge automat <code>community</code> (sau viitorul
+              <code>hazards</code>) — doar draft + review uman
+            </li>
+            <li>Nu stoca PII (telefoane private, adrese de casă)</li>
+            <li>Nu commit / push fără cererea explicită a utilizatorului</li>
+          </ul>
+
+          <div class="callout accent">
+            <strong>Ghiduri oficiale pentru agenți</strong>
+            <ul>
+              <li>
+                Skill:
+                <a href="../../.cursor/skills/add-overlay/SKILL.md"
+                  ><code>.cursor/skills/add-overlay/</code></a
+                >
+              </li>
+              <li>
+                Reguli:
+                <code>.cursor/rules/project-core.mdc</code>,
+                <code>overlay-schema.mdc</code>,
+                <code>no-reinvent-osm.mdc</code>
+              </li>
+              <li>
+                Oameni:
+                <a href="../../CONTRIBUTING.md">CONTRIBUTING.md</a>
+              </li>
+              <li>
+                Plan:
+                <a href="../../docs/PLAN.md">docs/PLAN.md</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="layers">
+          <h2>Straturi / categorii</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Folder</th>
+                <th>Temă</th>
+                <th>Exemple <code>kind</code></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>places</code></td>
+                <td>Amenități</td>
+                <td>drinking_water, toilet, library, cafe</td>
+              </tr>
+              <tr>
+                <td><code>nature</code></td>
+                <td>Exterior</td>
+                <td>viewpoint, trailhead, picnic, swim</td>
+              </tr>
+              <tr>
+                <td><code>transport</code></td>
+                <td>Mobilitate</td>
+                <td>bike_parking, ev_charger, micromobility</td>
+              </tr>
+              <tr>
+                <td><code>culture</code></td>
+                <td>Cultură</td>
+                <td>mural, venue, memorial, exhibition</td>
+              </tr>
+              <tr>
+                <td><code>community</code></td>
+                <td>Comunitate (review uman)</td>
+                <td>mutual_aid, repair_cafe, free_wifi</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Taxonomie completă și roadmap:
+            <a href="../../docs/PLAN.md">docs/PLAN.md</a>.
+          </p>
+        </section>
+
+        <section id="contribute">
+          <h2>Contribuții umane</h2>
+          <p>
+            Același model ca pentru agenți: editezi GeoJSON sub
+            <code>overlays/</code>, deschizi PR, CI validează.
+            Vezi pașii detaliați în
+            <a href="../../CONTRIBUTING.md">CONTRIBUTING.md</a>.
+          </p>
+          <ol>
+            <li>Alege folderul de categorie</li>
+            <li>
+              Adaugă feature cu
+              <code>id</code>, <code>name</code>, <code>category</code>,
+              <code>kind</code>, <code>source</code>, <code>license</code>
+            </li>
+            <li>
+              Pentru <code>community</code>: label
+              <code>needs-human-review</code>
+            </li>
+          </ol>
+        </section>
+
+        <section id="links">
+          <h2>Linkuri</h2>
+          <ul class="links">
+            <li>
+              <a href="../demo/">Demo hartă (MapLibre)</a>
+            </li>
+            <li>
+              <a href="../../README.md">README</a>
+            </li>
+            <li>
+              <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>
+            </li>
+            <li>
+              <a href="../../docs/PLAN.md">Plan produs</a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/petrovicistefan/world-map-open-source"
+                >Repo GitHub</a
+              >
+            </li>
+            <li>
+              <a href="https://openfreemap.org/">OpenFreeMap</a> ·
+              <a href="https://maplibre.org/">MapLibre</a>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
