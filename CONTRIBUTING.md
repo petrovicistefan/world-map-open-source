@@ -1,27 +1,50 @@
 # Contributing
 
-## Add an overlay feature
+## Principle
 
-1. Choose an MVP category folder under `overlays/` (`places`, `nature`, `transport`, `culture`, `community`).
-2. Edit or create a `.geojson` FeatureCollection (optionally add a sibling `.meta.yaml` for dataset notes).
-3. Every feature must include: `id`, `name`, `category`, `kind`, `source`, `license`.
-4. Prefer stable ids like `category/slug` (e.g. `places/berlin-brandenburg-gate-drinking-water`).
-5. Match `category` to the folder name; use a kind from that category’s README.
-6. No personal data (private phones, home addresses).
-7. Open a PR. Label `needs-human-review` for `community` (and any future `hazards`).
+**Simplest path wins.** No builds. Edit GeoJSON → validate → PR → pin on map.
 
-Schema: `schemas/overlay.schema.json`  
-Agent guide: `.cursor/skills/add-overlay/SKILL.md`  
-Docs (EN): `apps/docs/` — includes **How agents contribute** and copy-paste website examples  
-Plan: `docs/PLAN.md`
-
-## Validate locally (optional)
-
-```bash
-# requires Node 18+ and npx
-npx --yes ajv-cli validate -s schemas/overlay.schema.json -d "overlays/**/*.geojson"
+```
+overlays/<category>/berlin.geojson   ← data
+schemas/taxonomy.json                ← layers + kinds + icon
+schemas/overlay.schema.json          ← validation
+scripts/validate-overlays.mjs        ← only “tooling” you need
+apps/demo/                           ← static HTML/JS (python -m http.server)
 ```
 
-## Code / demo
+## Add a pin (fast)
 
-Keep the SDK thin. Prefer MapLibre + OpenFreeMap. Do not add a tile server.
+1. Open `overlays/<category>/berlin.geojson` (`services`, `family`, `places`, `nature`, `transport`, `culture`, `community`).
+2. Append a Feature with: `id`, `name`, `category`, `kind`, `source`, `license`.
+3. Id format: `category/city-slug` (e.g. `family/berlin-tiergarten-playground`).
+4. `kind` must be in that category’s list in `schemas/taxonomy.json`.
+5. Validate:
+
+```bash
+npm install --no-save ajv@8 ajv-formats@3   # once locally / CI
+node scripts/validate-overlays.mjs
+```
+
+6. PR. For `community`: label `needs-human-review`.
+
+Agents: `"source": "agent"`. No PII. No confidential shelters.
+
+## Add a new layer (category)
+
+1. Add folder `overlays/<id>/` + `berlin.geojson`.
+2. Add category to `schemas/taxonomy.json` with `kinds`, **`icon`**, **`color`**.
+3. Drop SVG at `assets/icons/<id>.svg`.
+4. Add chip id to `apps/demo/overlays-config.js` (one line).
+5. Run `node scripts/validate-overlays.mjs`.
+
+No webpack, no TypeScript build, no backend.
+
+## Optional helpers
+
+- `packages/sdk` — plain ESM validate helpers (no build).
+- `packages/mcp` — optional stdio tools for agents (`npm install` in that folder only if you use MCP). Still file-backed; never auto-commit/push.
+
+## Docs
+
+- Skill: `.cursor/skills/add-overlay/`
+- Plan: `docs/PLAN.md`

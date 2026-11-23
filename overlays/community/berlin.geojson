@@ -1,0 +1,148 @@
+{
+  "type": "FeatureCollection",
+  "name": "community-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4058,
+          52.4989
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-kreuzberg-repair-cafe",
+        "name": "Repair Caf\u00e9 Kreuzberg (draft \u2014 verify before publishing)",
+        "category": "community",
+        "kind": "repair_cafe",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Kreuzberg"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4285,
+          52.5088
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-friedrichshain-free-wifi",
+        "name": "Community free Wi\u2011Fi spot (draft)",
+        "category": "community",
+        "kind": "free_wifi",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Friedrichshain"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.418,
+          52.501
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-kreuzberg-tool-library",
+        "name": "Tool library / Leihladen Kreuzberg (draft)",
+        "category": "community",
+        "kind": "tool_library",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Kreuzberg"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.39,
+          52.53
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-wedding-mutual-aid",
+        "name": "Mutual-aid drop point \u2014 Wedding (draft)",
+        "category": "community",
+        "kind": "mutual_aid",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Wedding"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.355,
+          52.505
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-schoeneberg-cooling-center",
+        "name": "Cooling center \u2014 Sch\u00f6neberg civic hall (draft)",
+        "category": "community",
+        "kind": "cooling_center",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "neighbourhood": "Sch\u00f6neberg",
+          "season": "heatwave"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.35,
+          52.49
+        ]
+      },
+      "properties": {
+        "id": "community/berlin-schoeneberg-women-support",
+        "name": "Women's advice centre \u2014 Sch\u00f6neberg (draft, publicly listed)",
+        "category": "community",
+        "kind": "women_support",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "needs_review": true,
+          "audience": [
+            "women"
+          ],
+          "note": "Only publicly listed orgs \u2014 never confidential refuges"
+        }
+      }
+    }
+  ]
+}

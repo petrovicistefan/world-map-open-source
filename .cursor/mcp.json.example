@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "world-map": {
+      "command": "node",
+      "args": ["${workspaceFolder}/packages/mcp/src/index.js"],
+      "env": {
+        "WORLD_MAP_ROOT": "${workspaceFolder}"
+      }
+    }
+  }
+}

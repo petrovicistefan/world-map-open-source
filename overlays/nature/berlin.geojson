@@ -1,0 +1,162 @@
+{
+  "type": "FeatureCollection",
+  "name": "nature-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4035, 52.4732]
+      },
+      "properties": {
+        "id": "nature/berlin-tempelhofer-feld-viewpoint",
+        "name": "Tempelhofer Feld — runway viewpoint",
+        "category": "nature",
+        "kind": "viewpoint",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "tags": ["park", "open-space"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3505, 52.5142]
+      },
+      "properties": {
+        "id": "nature/berlin-tiergarten-picnic",
+        "name": "Tiergarten picnic lawn",
+        "category": "nature",
+        "kind": "picnic",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3378, 52.5145]
+      },
+      "properties": {
+        "id": "nature/berlin-tiergarten-park-gate",
+        "name": "Tiergarten — Straße des 17. Juni gate",
+        "category": "nature",
+        "kind": "park_gate",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.2165, 52.476]
+      },
+      "properties": {
+        "id": "nature/berlin-grunewald-trailhead",
+        "name": "Grunewald — Teufelsberg trailhead",
+        "category": "nature",
+        "kind": "trailhead",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "difficulty": "easy" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.196, 52.4765]
+      },
+      "properties": {
+        "id": "nature/berlin-teufelsberg-viewpoint",
+        "name": "Teufelsberg summit viewpoint",
+        "category": "nature",
+        "kind": "viewpoint",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "tags": ["hill", "views"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.482, 52.5155]
+      },
+      "properties": {
+        "id": "nature/berlin-mueggelsee-swim",
+        "name": "Müggelsee swim spot (east shore)",
+        "category": "nature",
+        "kind": "swim",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "season": "summer", "tags": ["lake"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4295, 52.487]
+      },
+      "properties": {
+        "id": "nature/berlin-goerlitzer-park-gate",
+        "name": "Görlitzer Park — Wrangelstraße gate",
+        "category": "nature",
+        "kind": "park_gate",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "neighbourhood": "Kreuzberg" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.24, 52.45]
+      },
+      "properties": {
+        "id": "nature/berlin-grunewald-dark-sky",
+        "name": "Grunewald clearing — dark-sky watching (sample)",
+        "category": "nature",
+        "kind": "dark_sky",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "note": "Best on clear nights away from street lights; not a certified dark-sky park"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.417, 52.456]
+      },
+      "properties": {
+        "id": "nature/berlin-tempelhofer-feld-picnic",
+        "name": "Tempelhofer Feld picnic meadow",
+        "category": "nature",
+        "kind": "picnic",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin" }
+      }
+    }
+  ]
+}

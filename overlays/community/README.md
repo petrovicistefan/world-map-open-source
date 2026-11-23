@@ -1,7 +1,14 @@
 # Category: `community`
 
-Mutual aid and civic services. **Human review required** before treating as verified.
+Mutual aid and civic services. **Human review required.**
 
-**Kinds (MVP):** `mutual_aid` · `tool_library` · `repair_cafe` · `cooling_center` · `free_wifi`
+| Kind | Use for |
+|------|---------|
+| `mutual_aid` | Mutual-aid drop points |
+| `tool_library` | Tool libraries |
+| `repair_cafe` | Repair cafés |
+| `cooling_center` | Heatwave cooling centers |
+| `free_wifi` | Community free Wi‑Fi |
+| `women_support` | Women's advice centres that **publicly** want visibility |
 
-Agent drafts should set `"source": "agent"` and `extra.needs_review: true`.
+Never map confidential shelters. Prefer `services` (women) and `family` (kids spaces) for everyday pins.

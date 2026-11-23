@@ -1,0 +1,168 @@
+{
+  "type": "FeatureCollection",
+  "name": "family-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.4175, 52.4875] },
+      "properties": {
+        "id": "family/berlin-goerlitzer-park-playground",
+        "name": "Görlitzer Park playground",
+        "category": "family",
+        "kind": "playground",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"], "neighbourhood": "Kreuzberg" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.35, 52.514] },
+      "properties": {
+        "id": "family/berlin-tiergarten-playground",
+        "name": "Tiergarten — Spielplatz near Neuer See",
+        "category": "family",
+        "kind": "playground",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.43, 52.49] },
+      "properties": {
+        "id": "family/berlin-kreuzberg-indoor-play",
+        "name": "Indoor play hall — Kreuzberg",
+        "category": "family",
+        "kind": "indoor_play",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.42, 52.5] },
+      "properties": {
+        "id": "family/berlin-kreuzberg-creche",
+        "name": "Crèche / Kinderkrippe — Kreuzberg (public listing)",
+        "category": "family",
+        "kind": "creche",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children"],
+          "note": "Public listing only — confirm places and hours"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.4, 52.53] },
+      "properties": {
+        "id": "family/berlin-wedding-kita",
+        "name": "Kita — Wedding (public listing)",
+        "category": "family",
+        "kind": "kita",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"], "neighbourhood": "Wedding" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.355, 52.505] },
+      "properties": {
+        "id": "family/berlin-schoeneberg-after-school",
+        "name": "After-school / Hort — Schöneberg",
+        "category": "family",
+        "kind": "after_school",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.3775, 52.516] },
+      "properties": {
+        "id": "family/berlin-brandenburger-tor-changing-table",
+        "name": "Changing table — Brandenburg Gate visitor toilets",
+        "category": "family",
+        "kind": "changing_table",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"], "fee": true }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.375, 52.509] },
+      "properties": {
+        "id": "family/berlin-potsdamer-platz-nursing-room",
+        "name": "Nursing room — Potsdamer Platz mall area",
+        "category": "family",
+        "kind": "nursing_room",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children", "women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.369, 52.525] },
+      "properties": {
+        "id": "family/berlin-hbf-family-restroom",
+        "name": "Family restroom — Hauptbahnhof",
+        "category": "family",
+        "kind": "family_restroom",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"], "near": "Berlin Hbf" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.402, 52.52] },
+      "properties": {
+        "id": "family/berlin-hackescher-markt-stroller",
+        "name": "Stroller-friendly courtyard — Hackesche Höfe",
+        "category": "family",
+        "kind": "stroller_friendly",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["children"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.41, 52.525] },
+      "properties": {
+        "id": "family/berlin-mitte-pediatric-clinic",
+        "name": "Pediatric practice — Mitte (public listing)",
+        "category": "family",
+        "kind": "pediatric_clinic",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children"],
+          "note": "Confirm hours and registration before visiting"
+        }
+      }
+    }
+  ]
+}

@@ -5,10 +5,20 @@ alwaysApply: true
 
 # World Map Open Source — Core
 
+## Simplicity (hard rule)
+
+- **No build step** for the product path: plain GeoJSON + static HTML/JS + JSON Schema.
+- **No bundlers, no React app, no compile pipeline** for MVP overlays/demo.
+- Fastest loop: edit file → validate → PR → visible on map.
+- Only required tooling: **schema + unique-id validation** (`scripts/validate-overlays.mjs` / CI).
+- Prefer copy-paste GeoJSON over abstractions. Do not invent APIs or databases.
+
 ## Product boundary
 
 - Reuse **OpenFreeMap** tiles + **MapLibre**. Never invent a tile farm or copy OSM dumps into this repo.
-- Differentiation = **git-native GeoJSON overlays** + thin SDK + agent/human PRs.
+- Differentiation = **git-native GeoJSON overlays** + thin helpers + agent/human PRs.
+- Focus: **services** (useful to women) + **family** (kids spaces: playground, creche/Kita).
+- New layers: folder under `overlays/` + entry in `schemas/taxonomy.json` with `icon` + `color` + SVG in `assets/icons/`.
 - Full plan: `docs/PLAN.md`.
 
 ## Local vs repo
@@ -21,7 +31,7 @@ alwaysApply: true
 ## Agent contribution rules
 
 - Add map data only under `overlays/<category>/` as FeatureCollections.
-- MVP categories: `places`, `nature`, `transport`, `culture`, `community`.
-- Every feature needs stable `properties.id`, `category`, `kind`, `source`, `license`.
-- No PII. No silent force-push. Do not commit unless the user asks.
-- For `community` (and later `hazards`): draft only; flag for human review.
+- MVP: `services`, `family`, `places`, `nature`, `transport`, `culture`, `community`.
+- Required props: `id`, `name`, `category`, `kind`, `source`, `license`.
+- No PII. Never map confidential refuges. No silent force-push. Do not commit unless the user asks.
+- For `community`: draft only; human review.

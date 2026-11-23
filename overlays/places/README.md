@@ -1,7 +1,16 @@
 # Category: `places`
 
-Amenities and everyday points of interest that add curated value beyond the basemap.
+Everyday amenities (pharmacy, cafés, toilets, libraries).
 
-**Kinds (MVP):** `cafe` · `coworking` · `library` · `toilet` · `drinking_water` · `atm` · `wifi`
+| Kind | Use for |
+|------|---------|
+| `cafe` | Cafés |
+| `coworking` | Coworking |
+| `library` | Libraries |
+| `toilet` | Public toilets |
+| `drinking_water` | Fountains |
+| `atm` | ATMs |
+| `wifi` | Free Wi‑Fi |
+| `pharmacy` | Pharmacies |
 
-See `docs/PLAN.md` and `.cursor/skills/add-overlay`.
+Women-oriented services → `services/`. Kids spaces → `family/`.

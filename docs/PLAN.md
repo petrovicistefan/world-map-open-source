@@ -44,7 +44,7 @@ A thin open-source layer on top of free basemaps where **humans and AI agents** 
 | `apps/demo/` | MapLibre demo consuming overlays | Yes |
 | `packages/sdk/` | Thin TS helpers (load, validate, style) | Yes (stub) |
 | `.github/workflows/` | CI: schema validate overlays | Yes |
-| MCP server | File-backed agent tools | Later |
+| MCP server | File-backed agent tools (`packages/mcp`) | Yes (stub) |
 
 Remote: https://github.com/petrovicistefan/world-map-open-source.git
 
@@ -67,10 +67,12 @@ Remote: https://github.com/petrovicistefan/world-map-open-source.git
 
 **Principles**
 
-1. Never invent a tile server or fork OSM data into this repo.
-2. One FeatureCollection file per logical dataset under a category folder.
-3. Properties are schema-validated; unknown keys allowed only under `properties.extra`.
-4. Agents propose overlays via PR; humans review sensitive categories.
+1. **No builds** — static GeoJSON + HTML/JS; only schema/id validation as tooling.
+2. Never invent a tile server or fork OSM data into this repo.
+3. One FeatureCollection file per logical dataset under a category folder.
+4. Properties are schema-validated; unknown keys only under `properties.extra`.
+5. Agents propose overlays via PR; humans review sensitive categories.
+6. Prefer the shortest path to put a pin on the map (edit file → validate → merge).
 
 ---
 
@@ -92,11 +94,12 @@ Toggleable in the UI = one MapLibre source+layer group per category (or per file
 
 | # | Slug / id | Features belong here | Example properties | Contributors | Priority |
 |---|-----------|----------------------|--------------------|--------------|----------|
-| 1 | `places` | Cafés, coworking, libraries, free toilets, drinking water, ATMs with known fees | `name`, `kind`, `opening_hours?`, `website?`, `verified_at`, `source` | Humans + agents | **MVP** |
+| 0 | `family` | **Priority — women & children:** playgrounds, nursing/changing, kids café, midwife, pediatric, family centers | `name`, `kind`, `extra.audience?` | Humans + agents | **MVP** |
+| 1 | `places` | Amenities (pharmacy, family café, toilets, libraries, water) | `name`, `kind`, `opening_hours?`, `website?` | Humans + agents | **MVP** |
 | 2 | `nature` | Viewpoints, trailheads, swimming spots, picnic areas, dark-sky sites | `name`, `kind`, `access`, `difficulty?`, `season?` | Humans + agents | **MVP** |
 | 3 | `transport` | Bike parking, EV chargers, carshare pods, micromobility hubs (gaps vs OSM) | `name`, `kind`, `operator?`, `capacity?`, `fee?` | Humans + agents | **MVP** |
 | 4 | `culture` | Murals, indie venues, memorials, temporary exhibition pins | `name`, `kind`, `artist?`, `start_date?`, `end_date?` | Humans + agents | **MVP** |
-| 5 | `community` | Mutual-aid drop points, free Wi‑Fi, tool libraries, repair cafés, cooling centers | `name`, `kind`, `org?`, `contact?`, `hours?` | Humans (agents draft only) | **MVP** |
+| 5 | `community` | Parent/women support, diaper bank, toy library, mutual aid (no secret shelters) | `name`, `kind`, `extra.needs_review` | Humans (agents draft only) | **MVP** |
 
 #### Later (design now, folders optional / empty)
 
@@ -149,26 +152,31 @@ Rules:
 ```
 overlays/
   places/
-    README.md                 # category purpose + kinds
-    sample-berlin.geojson     # MVP sample
+    README.md           # category purpose + kinds
+    berlin.geojson      # MVP test city
+    berlin.meta.yaml
   nature/
   transport/
   culture/
   community/
+schemas/
+  taxonomy.json         # kinds + review_policy (agent/MCP source of truth)
+  overlay.schema.json   # FeatureCollection + kind constraints
 ```
 
 ---
 
 ## 5. SDK (thin)
 
-`packages/sdk` responsibilities (MVP stub → expand):
+`packages/sdk` responsibilities:
 
-- `listCategories()` / `listOverlays(category?)`
-- `loadOverlay(path)` → GeoJSON
-- `validateFeature(feature)` against JSON Schema
+- `listCategories()` / `getCategory()` / `listKinds(category)`
+- `loadOverlay(url)` → GeoJSON
+- `validateFeature` / `validateFeatureCollection` (taxonomy + required fields)
+- `featureTemplate(category)` for agents
 - `toMapLibreSources(overlays)` → style fragments
 
-No hosting, no auth, no tile generation.
+Taxonomy is mirrored from `schemas/taxonomy.json`. No hosting, no auth, no tile generation.
 
 ---
 
@@ -191,18 +199,18 @@ No hosting, no auth, no tile generation.
 
 ---
 
-## 8. MCP (future — plan only)
+## 8. MCP (stub — `packages/mcp`)
 
-File-backed MCP server (not implemented yet) for agents working outside Cursor:
+File-backed MCP server (stdio) for agents working outside Cursor. Wraps `schemas/taxonomy.json` + SDK validate. See [`packages/mcp/README.md`](../packages/mcp/README.md).
 
 | Tool | Behavior |
 |------|----------|
-| `list_layers` | Return category taxonomy + MVP flags |
+| `list_layers` | Return `taxonomy.json` categories + MVP flags |
 | `list_overlays` | List GeoJSON files under `overlays/` |
 | `get_overlay` | Read one FeatureCollection |
-| `validate_overlay` | Run schema + id uniqueness checks |
+| `validate_overlay` | Run schema + id uniqueness checks (reuse SDK) |
 | `get_map_style` | Return base style URL + overlay style hints |
-| `propose_feature` | Validate a feature draft; write to a branch/path suggestion (no silent push) |
+| `propose_feature` | Validate a feature draft; optional `write=true` append (no commit/push) |
 
 Backed by the same `schemas/` and `overlays/` tree — MCP is a thin I/O facade, not a second data store.
 
@@ -222,10 +230,10 @@ Backed by the same `schemas/` and `overlays/` tree — MCP is a thin I/O facade,
 | Phase | Deliverable |
 |-------|-------------|
 | **Now** | Plan + rules + skills + light scaffold (this workspace) |
-| **MVP** | README, schemas, samples, demo, CONTRIBUTING, CI → first commit/push |
+| **MVP** | Taxonomy, Berlin overlays (5 cats), demo, CONTRIBUTING, CI, SDK validate, MCP stub |
 | **v0.2** | SDK publishable package, more cities, layer switcher polish |
-| **v0.3** | Events + accessibility categories |
-| **Later** | MCP server, `_ns/` namespaces, hazards with strict policy |
+| **v0.3** | Events + accessibility categories; MCP propose → branch helper |
+| **Later** | `_ns/` namespaces, hazards with strict policy |
 
 ---
 
@@ -240,7 +248,6 @@ Backed by the same `schemas/` and `overlays/` tree — MCP is a thin I/O facade,
 
 ## 12. Suggested next step
 
-1. Review taxonomy (especially MVP 5 categories).
-2. Flesh demo + sample overlays for one city.
+1. Review Berlin MVP overlays on the demo (all 5 layers).
+2. Wire `packages/mcp` into Cursor MCP config (see packages/mcp/README.md).
 3. User asks explicitly → **commit + push** to `world-map-open-source`.
-4. Optionally scaffold MCP stub after MVP lands.

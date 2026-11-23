@@ -1,5 +1,8 @@
 # Overlay reference
 
+Canonical taxonomy: `schemas/taxonomy.json`.  
+**Product focus:** women, children, caregivers (`family` is priority).
+
 ## Sources
 
 | `source` | Meaning |
@@ -11,7 +14,9 @@
 
 ## Kind allow-list (MVP)
 
-**places:** `cafe` · `coworking` · `library` · `toilet` · `drinking_water` · `atm` · `wifi`
+**family (priority):** `playground` · `indoor_play` · `changing_table` · `nursing_room` · `family_restroom` · `stroller_friendly` · `kids_cafe` · `pediatric_clinic` · `midwife` · `birth_center` · `parent_child_course` · `family_center`
+
+**places:** `cafe` · `family_cafe` · `coworking` · `library` · `toilet` · `drinking_water` · `atm` · `wifi` · `pharmacy`
 
 **nature:** `viewpoint` · `trailhead` · `swim` · `picnic` · `dark_sky` · `park_gate`
 
@@ -19,14 +24,24 @@
 
 **culture:** `mural` · `venue` · `memorial` · `exhibition`
 
-**community:** `mutual_aid` · `tool_library` · `repair_cafe` · `cooling_center` · `free_wifi`
+**community:** `mutual_aid` · `tool_library` · `repair_cafe` · `cooling_center` · `free_wifi` · `parent_support` · `women_support` · `diaper_bank` · `toy_library`
 
-## Later categories (do not use until enabled)
+## Later (do not use until enabled)
 
-`events`, `hazards`, `accessibility`, `food_rescue`, `_ns/<app>`
+`services`, `food`, `sport`, `events`, `hazards`, `accessibility`, `food_rescue`, `health`
 
-## Non-goals for overlays
+## Safety
+
+- Never map confidential shelters / safe houses
+- No PII of minors or private homes
+- `women_support` / `parent_support` = publicly listed orgs only
+
+## Id convention
+
+`{category}/{city}-{slug}` — e.g. `family/berlin-goerlitzer-park-playground`
+
+## Non-goals
 
 - Duplicating the entire OSM POI corpus
 - Live emergency feeds without `hazards` policy
-- Storing basemap tiles or MBTiles in-repo
+- Storing basemap tiles in-repo

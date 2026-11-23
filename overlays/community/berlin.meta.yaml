@@ -1,0 +1,7 @@
+id: community-berlin
+category: community
+city: Berlin
+license: ODbL-1.0
+notes: >-
+  Agent draft samples only. All features have source=agent and
+  extra.needs_review=true. Do not treat as verified until human review.

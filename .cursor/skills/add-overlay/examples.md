@@ -27,6 +27,8 @@
 }
 ```
 
+Append to `overlays/places/berlin.geojson` (or a new FeatureCollection under `overlays/places/`).
+
 ## Agent draft (community — needs human review)
 
 ```json
@@ -44,3 +46,5 @@
   }
 }
 ```
+
+File: `overlays/community/berlin.geojson`. Open a draft PR with label `needs-human-review`.

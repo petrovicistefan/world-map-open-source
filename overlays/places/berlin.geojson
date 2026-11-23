@@ -1,0 +1,274 @@
+{
+  "type": "FeatureCollection",
+  "name": "places-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3777,
+          52.5163
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-brandenburg-gate-drinking-water",
+        "name": "Drinking fountain \u2014 Brandenburg Gate",
+        "category": "places",
+        "kind": "drinking_water",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "tags": [
+            "water",
+            "tourist"
+          ]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3909,
+          52.5074
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-staatsbibliothek",
+        "name": "Staatsbibliothek zu Berlin",
+        "category": "places",
+        "kind": "library",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://staatsbibliothek-berlin.de/",
+        "extra": {
+          "city": "Berlin"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4012,
+          52.5271
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-cafe-rosenthaler",
+        "name": "Neighbourhood caf\u00e9 \u2014 Rosenthaler Platz",
+        "category": "places",
+        "kind": "cafe",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "opening_hours": "Mo-Fr 08:00-18:00; Sa-Su 09:00-17:00",
+        "extra": {
+          "city": "Berlin",
+          "tags": [
+            "cafe",
+            "wifi"
+          ]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3888,
+          52.5194
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-neues-museum-toilet",
+        "name": "Public toilet \u2014 Museum Island approach",
+        "category": "places",
+        "kind": "toilet",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "fee": true
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4205,
+          52.5007
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-factory-coworking",
+        "name": "Factory Berlin G\u00f6rlitzer Park area \u2014 coworking",
+        "category": "places",
+        "kind": "coworking",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.factory.berlin/",
+        "extra": {
+          "city": "Berlin",
+          "neighbourhood": "Kreuzberg"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3886,
+          52.517
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-unter-den-linden-atm",
+        "name": "ATM \u2014 Unter den Linden",
+        "category": "places",
+        "kind": "atm",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "fee_note": "confirm fee on site"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.428,
+          52.5075
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-boxhagener-platz-wifi",
+        "name": "Free Wi\u2011Fi zone \u2014 Boxhagener Platz",
+        "category": "places",
+        "kind": "wifi",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "neighbourhood": "Friedrichshain"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4125,
+          52.522
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-alexanderplatz-drinking-water",
+        "name": "Drinking fountain \u2014 Alexanderplatz",
+        "category": "places",
+        "kind": "drinking_water",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "tags": [
+            "water"
+          ]
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3752,
+          52.5075
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-potsdamer-platz-cafe",
+        "name": "Caf\u00e9 terrace \u2014 Potsdamer Platz",
+        "category": "places",
+        "kind": "cafe",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "opening_hours": "Mo-Su 08:00-20:00",
+        "extra": {
+          "city": "Berlin"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.403,
+          52.5205
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-hackescher-markt-toilet",
+        "name": "Public toilet \u2014 Hackescher Markt",
+        "category": "places",
+        "kind": "toilet",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "changing_table_nearby": true
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.388,
+          52.52
+        ]
+      },
+      "properties": {
+        "id": "places/berlin-friedrichstrasse-pharmacy",
+        "name": "Pharmacy \u2014 Friedrichstra\u00dfe",
+        "category": "places",
+        "kind": "pharmacy",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "audience": [
+            "women",
+            "caregivers",
+            "children"
+          ],
+          "note": "Useful for caregivers; confirm late hours on site"
+        }
+      }
+    }
+  ]
+}

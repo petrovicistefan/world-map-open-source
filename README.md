@@ -1,12 +1,14 @@
 # World Map Open Source
 
-![World Map Open Source preview](docs/assets/og-preview.png)
+![World Map Open Source demo — Berlin](docs/assets/demo-preview.png)
 
 Collaborative, **git-native GeoJSON overlays** on top of **OpenFreeMap** + **MapLibre**.
 
 We do **not** rebuild OSM or run a tile farm. The basemap is free; curated layers are the product.
 
-> Preview asset: [`docs/assets/og-preview.png`](docs/assets/og-preview.png) (1280×720) — suitable for GitHub README and future Open Graph / Pages social cards.
+**Stack rule:** no builds — edit GeoJSON → validate → PR → visible. Static demo only.
+
+> Screenshot: [`docs/assets/demo-preview.png`](docs/assets/demo-preview.png) · also used as [`og-preview.png`](docs/assets/og-preview.png) for social / Pages cards.
 
 ## Quick start (demo)
 
@@ -18,34 +20,50 @@ python3 -m http.server 5173
 # Docs:  http://localhost:5173/apps/docs/
 ```
 
-The demo loads OpenFreeMap as the base style and toggles MVP overlay categories from `overlays/`.
+Demo UX (Berlin): layer chips, left results list (expand/collapse), search among **visible** pins, list updates when the map moves. Flat 2D map only.
 
-**Docs (EN):** [apps/docs/](apps/docs/) — overview, quick start, **rich integration examples**, and **how AI agents contribute** (PR workflow + schema + GeoJSON). Sample city: **Berlin**.
+**Docs (EN):** [apps/docs/](apps/docs/) — overview, integration examples, and how AI agents contribute. Sample city: **Berlin**.
 
 ## MVP overlay categories
 
-| Folder | Theme |
-|--------|--------|
-| `overlays/places/` | Amenities (water, toilets, libraries, …) |
-| `overlays/nature/` | Viewpoints, trailheads, outdoors |
-| `overlays/transport/` | Bike parking, EV, micromobility |
-| `overlays/culture/` | Murals, venues, memorials |
-| `overlays/community/` | Mutual aid, repair cafés (human review) |
+**Focus:** services useful to women + spaces for children.
 
-Full taxonomy, roadmap, and MCP sketch: **[docs/PLAN.md](docs/PLAN.md)**
+| Folder | Theme | Review |
+|--------|--------|--------|
+| `overlays/services/` | Salon, tailor, laundry, midwife, physio, … | open |
+| `overlays/family/` | Playgrounds, creche/Kita, changing/nursing, … | open |
+| `overlays/places/` | Pharmacy, cafés, toilets, libraries, … | open |
+| `overlays/nature/` | Viewpoints, trailheads, outdoors | open |
+| `overlays/transport/` | Bike parking, EV, micromobility | open |
+| `overlays/culture/` | Murals, venues, memorials | open |
+| `overlays/community/` | Mutual aid, women support (public orgs) | **human review** |
+
+Each layer has an `icon` + `color` in [`schemas/taxonomy.json`](schemas/taxonomy.json) and an SVG under [`assets/icons/`](assets/icons/).
+
+Test city: **Berlin** → `overlays/<category>/berlin.geojson`.  
+MCP (optional): [`packages/mcp/`](packages/mcp/).  
+Full plan: **[docs/PLAN.md](docs/PLAN.md)**
 
 ## Contribute
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Agents: use `.cursor/skills/add-overlay`.
 
+```bash
+npm install --no-save ajv@8 ajv-formats@3
+node scripts/validate-overlays.mjs
+```
+
 ## Repo layout
 
 ```
-overlays/     curated GeoJSON by category
-schemas/      JSON Schema for overlays
-apps/demo/    MapLibre layer switcher demo
-apps/docs/    Documentation UI (integrate + agent workflow)
-packages/sdk/ thin load/validate helpers (stub)
+overlays/     curated GeoJSON by category (Berlin MVP)
+assets/icons/ layer icons (SVG)
+schemas/      taxonomy.json + overlay.schema.json
+apps/demo/    static MapLibre demo (chips + results list)
+apps/docs/    documentation UI
+packages/sdk/ plain ESM validate helpers
+packages/mcp/ optional file-backed MCP server
+scripts/      validate-overlays.mjs (CI)
 docs/PLAN.md  product plan
 .cursor/      shared rules + skills for AI agents
 ```

@@ -1,0 +1,5 @@
+id: places-berlin
+category: places
+city: Berlin
+license: ODbL-1.0
+notes: Curated amenity pins for the MapLibre demo (central Berlin + nearby).

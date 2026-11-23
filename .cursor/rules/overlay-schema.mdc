@@ -18,9 +18,9 @@ alwaysApply: false
 id, name, category, kind, source, license
 ```
 
-- `id`: unique repo-wide, kebab-case, prefer `category/slug`
+- `id`: unique repo-wide, kebab-case, prefer `category/city-slug`
 - `category`: must match parent folder name
-- `kind`: from the category allow-list in `docs/PLAN.md` / category README
+- `kind`: from `schemas/taxonomy.json` (also category README)
 - `source`: `survey` | `osm-gap` | `agent` | `import`
 - `license`: default `ODbL-1.0` unless justified otherwise
 - Optional: `verified_at` (ISO date), `website`, `opening_hours`, `extra` object

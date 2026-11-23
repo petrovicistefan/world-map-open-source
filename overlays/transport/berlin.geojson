@@ -1,0 +1,125 @@
+{
+  "type": "FeatureCollection",
+  "name": "transport-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4132, 52.5215]
+      },
+      "properties": {
+        "id": "transport/berlin-alexanderplatz-bike-parking",
+        "name": "Bike parking — Alexanderplatz",
+        "category": "transport",
+        "kind": "bike_parking",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "covered": false, "near": "U2/U5/U8" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3889, 52.52]
+      },
+      "properties": {
+        "id": "transport/berlin-friedrichstrasse-micromobility",
+        "name": "Micromobility hub — Friedrichstraße",
+        "category": "transport",
+        "kind": "micromobility",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "modes": ["scooter", "bike-share"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3695, 52.525]
+      },
+      "properties": {
+        "id": "transport/berlin-hauptbahnhof-ev-charger",
+        "name": "EV charger — Hauptbahnhof area",
+        "category": "transport",
+        "kind": "ev_charger",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "near": "Berlin Hbf" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.375, 52.507]
+      },
+      "properties": {
+        "id": "transport/berlin-potsdamer-platz-carshare",
+        "name": "Carshare pod — Potsdamer Platz",
+        "category": "transport",
+        "kind": "carshare",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "operators_note": "check app for live availability" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.431, 52.508]
+      },
+      "properties": {
+        "id": "transport/berlin-warschauer-strasse-bike-parking",
+        "name": "Bike parking — Warschauer Straße",
+        "category": "transport",
+        "kind": "bike_parking",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "near": "S-/U-Bahn Warschauer Str." }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.45, 52.512]
+      },
+      "properties": {
+        "id": "transport/berlin-ostbahnhof-micromobility",
+        "name": "Micromobility hub — Ostbahnhof",
+        "category": "transport",
+        "kind": "micromobility",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "modes": ["scooter", "bike-share"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3285, 52.507]
+      },
+      "properties": {
+        "id": "transport/berlin-zoologischer-garten-ev-charger",
+        "name": "EV charger — Zoo / Hardenbergplatz",
+        "category": "transport",
+        "kind": "ev_charger",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin" }
+      }
+    }
+  ]
+}

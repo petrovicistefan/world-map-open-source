@@ -1,0 +1,132 @@
+{
+  "type": "FeatureCollection",
+  "name": "culture-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4395, 52.5052]
+      },
+      "properties": {
+        "id": "culture/berlin-east-side-gallery",
+        "name": "East Side Gallery mural stretch",
+        "category": "culture",
+        "kind": "mural",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.eastsidegalleryberlin.de/",
+        "extra": {
+          "city": "Berlin",
+          "note": "Iconic open-air gallery along the Spree"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3969, 52.5211]
+      },
+      "properties": {
+        "id": "culture/berlin-museum-island",
+        "name": "Museum Island — visitor plaza",
+        "category": "culture",
+        "kind": "venue",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.museumsinsel-berlin.de/",
+        "extra": { "city": "Berlin", "tags": ["museum", "unesco"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.378, 52.5165]
+      },
+      "properties": {
+        "id": "culture/berlin-brandenburg-gate-memorial",
+        "name": "Brandenburg Gate — memorial plaza",
+        "category": "culture",
+        "kind": "memorial",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "tags": ["landmark"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3785, 52.5138]
+      },
+      "properties": {
+        "id": "culture/berlin-holocaust-memorial",
+        "name": "Memorial to the Murdered Jews of Europe",
+        "category": "culture",
+        "kind": "memorial",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.stiftung-denkmal.de/",
+        "extra": { "city": "Berlin" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3645, 52.5075]
+      },
+      "properties": {
+        "id": "culture/berlin-kulturforum-venue",
+        "name": "Kulturforum — concert & museum cluster",
+        "category": "culture",
+        "kind": "venue",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.kulturforum-berlin.de/",
+        "extra": { "city": "Berlin" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4018, 52.5235]
+      },
+      "properties": {
+        "id": "culture/berlin-hackesche-hoefe-exhibition",
+        "name": "Hackesche Höfe — courtyard exhibition space",
+        "category": "culture",
+        "kind": "exhibition",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "neighbourhood": "Mitte" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.451, 52.5055]
+      },
+      "properties": {
+        "id": "culture/berlin-raw-gelande-mural",
+        "name": "RAW Gelände street murals",
+        "category": "culture",
+        "kind": "mural",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "neighbourhood": "Friedrichshain" }
+      }
+    }
+  ]
+}

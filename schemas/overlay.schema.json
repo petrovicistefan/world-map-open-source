@@ -2,67 +2,398 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/petrovicistefan/world-map-open-source/schemas/overlay.schema.json",
   "title": "World Map Open Source Overlay",
-  "description": "GeoJSON FeatureCollection for curated map overlays",
+  "description": "GeoJSON FeatureCollection. Kinds match schemas/taxonomy.json.",
   "type": "object",
-  "required": ["type", "features"],
+  "required": [
+    "type",
+    "features"
+  ],
   "additionalProperties": false,
   "properties": {
-    "type": { "const": "FeatureCollection" },
-    "name": { "type": "string" },
+    "type": {
+      "const": "FeatureCollection"
+    },
+    "name": {
+      "type": "string"
+    },
     "features": {
       "type": "array",
-      "items": { "$ref": "#/$defs/feature" }
+      "items": {
+        "$ref": "#/$defs/feature"
+      }
     }
   },
   "$defs": {
     "feature": {
       "type": "object",
-      "required": ["type", "geometry", "properties"],
+      "required": [
+        "type",
+        "geometry",
+        "properties"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": { "const": "Feature" },
+        "type": {
+          "const": "Feature"
+        },
         "geometry": {
           "type": "object",
-          "required": ["type", "coordinates"],
+          "required": [
+            "type",
+            "coordinates"
+          ],
           "properties": {
             "type": {
               "type": "string",
-              "enum": ["Point", "LineString", "Polygon", "MultiPoint", "MultiLineString", "MultiPolygon"]
+              "enum": [
+                "Point",
+                "LineString",
+                "Polygon",
+                "MultiPoint",
+                "MultiLineString",
+                "MultiPolygon"
+              ]
             },
             "coordinates": true
           }
         },
         "properties": {
-          "type": "object",
-          "required": ["id", "name", "category", "kind", "source", "license"],
-          "properties": {
-            "id": {
-              "type": "string",
-              "pattern": "^[a-z0-9]+(?:[/_-][a-z0-9]+)*$",
-              "minLength": 3
+          "oneOf": [
+            {
+              "$ref": "#/$defs/propsServices"
             },
-            "name": { "type": "string", "minLength": 1 },
-            "category": {
-              "type": "string",
-              "enum": ["places", "nature", "transport", "culture", "community", "events", "hazards", "accessibility", "food_rescue"]
+            {
+              "$ref": "#/$defs/propsFamily"
             },
-            "kind": { "type": "string", "minLength": 1 },
-            "source": {
-              "type": "string",
-              "enum": ["survey", "osm-gap", "agent", "import"]
+            {
+              "$ref": "#/$defs/propsPlaces"
             },
-            "license": { "type": "string", "minLength": 1 },
-            "verified_at": {
-              "type": "string",
-              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            {
+              "$ref": "#/$defs/propsNature"
             },
-            "website": { "type": "string" },
-            "opening_hours": { "type": "string" },
-            "extra": { "type": "object" }
-          },
-          "additionalProperties": false
+            {
+              "$ref": "#/$defs/propsTransport"
+            },
+            {
+              "$ref": "#/$defs/propsCulture"
+            },
+            {
+              "$ref": "#/$defs/propsCommunity"
+            },
+            {
+              "$ref": "#/$defs/propsGta6"
+            },
+            {
+              "$ref": "#/$defs/propsLater"
+            }
+          ]
         }
       }
+    },
+    "propsShared": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "category",
+        "kind",
+        "source",
+        "license"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[/_-][a-z0-9]+)*$",
+          "minLength": 3
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "survey",
+            "osm-gap",
+            "agent",
+            "import"
+          ]
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verified_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "website": {
+          "type": "string"
+        },
+        "opening_hours": {
+          "type": "string"
+        },
+        "extra": {
+          "type": "object"
+        }
+      }
+    },
+    "propsServices": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "services"
+            },
+            "kind": {
+              "enum": [
+                "hairdresser",
+                "beauty_salon",
+                "nail_salon",
+                "tailor",
+                "laundry",
+                "dry_clean",
+                "shoe_repair",
+                "jewelry_repair",
+                "physiotherapy",
+                "yoga_studio",
+                "midwife",
+                "gyn_clinic",
+                "cosmetics_shop"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsFamily": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "family"
+            },
+            "kind": {
+              "enum": [
+                "playground",
+                "indoor_play",
+                "creche",
+                "kita",
+                "after_school",
+                "changing_table",
+                "nursing_room",
+                "family_restroom",
+                "stroller_friendly",
+                "pediatric_clinic"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsPlaces": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "places"
+            },
+            "kind": {
+              "enum": [
+                "cafe",
+                "coworking",
+                "library",
+                "toilet",
+                "drinking_water",
+                "atm",
+                "wifi",
+                "pharmacy"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsNature": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "nature"
+            },
+            "kind": {
+              "enum": [
+                "viewpoint",
+                "trailhead",
+                "swim",
+                "picnic",
+                "dark_sky",
+                "park_gate"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsTransport": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "transport"
+            },
+            "kind": {
+              "enum": [
+                "bike_parking",
+                "ev_charger",
+                "carshare",
+                "micromobility"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsCulture": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "culture"
+            },
+            "kind": {
+              "enum": [
+                "mural",
+                "venue",
+                "memorial",
+                "exhibition"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsCommunity": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "community"
+            },
+            "kind": {
+              "enum": [
+                "mutual_aid",
+                "tool_library",
+                "repair_cafe",
+                "cooling_center",
+                "free_wifi",
+                "women_support"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsGta6": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "const": "gta6"
+            },
+            "kind": {
+              "enum": [
+                "landmark",
+                "district",
+                "safehouse",
+                "clothing",
+                "gun_shop",
+                "barber",
+                "tattoo",
+                "convenience",
+                "gas_station",
+                "garage",
+                "hospital",
+                "police",
+                "club",
+                "bar",
+                "airport",
+                "marina",
+                "port",
+                "beach",
+                "park",
+                "collectible"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "propsLater": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/propsShared"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "category": {
+              "enum": [
+                "food",
+                "sport",
+                "accessibility",
+                "events",
+                "hazards",
+                "food_rescue"
+              ]
+            },
+            "kind": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
     }
   }
 }

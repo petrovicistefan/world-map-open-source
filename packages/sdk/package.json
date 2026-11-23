@@ -5,7 +5,8 @@
   "type": "module",
   "main": "./src/index.js",
   "exports": {
-    ".": "./src/index.js"
+    ".": "./src/index.js",
+    "./taxonomy": "./src/taxonomy.js"
   },
-  "description": "Thin helpers to list, load, and describe curated map overlays"
+  "description": "Thin helpers to list, load, validate, and describe curated map overlays (taxonomy-aware)"
 }

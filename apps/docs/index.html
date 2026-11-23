@@ -76,7 +76,7 @@ const map = new maplibregl.Map({
 
           <h3>3. Load an overlay</h3>
           <pre><code class="language-js">map.on("load", async () => {
-  const data = await fetch("../../overlays/places/sample-berlin.geojson")
+  const data = await fetch("../../overlays/places/berlin.geojson")
     .then((r) => r.json());
 
   map.addSource("places", { type: "geojson", data });
@@ -153,11 +153,11 @@ const map = new maplibregl.Map({
               (same idea as <a href="../demo/">apps/demo</a>).
             </p>
             <pre><code class="language-js">const CATEGORIES = [
-  { id: "places",    url: "/overlays/places/sample-berlin.geojson",    color: "#0d6e6e" },
-  { id: "nature",    url: "/overlays/nature/sample-berlin.geojson",    color: "#2f7d32" },
-  { id: "transport", url: "/overlays/transport/sample-berlin.geojson", color: "#1565c0" },
-  { id: "culture",   url: "/overlays/culture/sample-berlin.geojson",   color: "#6a1b9a" },
-  { id: "community", url: "/overlays/community/sample-berlin.geojson", color: "#c62828" },
+  { id: "places",    url: "/overlays/places/berlin.geojson",    color: "#0d6e6e" },
+  { id: "nature",    url: "/overlays/nature/berlin.geojson",    color: "#2f7d32" },
+  { id: "transport", url: "/overlays/transport/berlin.geojson", color: "#1565c0" },
+  { id: "culture",   url: "/overlays/culture/berlin.geojson",   color: "#6a1b9a" },
+  { id: "community", url: "/overlays/community/berlin.geojson", color: "#c62828" },
 ];
 
 map.on("load", async () => {
@@ -228,7 +228,7 @@ map.setFilter("lyr-nature", ["==", ["get", "kind"], "viewpoint"]);</code></pre>
               Load community overlays from this repo <em>and</em> your own GeoJSON
               from your domain — typical for product pages that mix public + private data.
             </p>
-            <pre><code class="language-js">const COMMUNITY = "/overlays/places/sample-berlin.geojson";
+            <pre><code class="language-js">const COMMUNITY = "/overlays/places/berlin.geojson";
 const MY_STORES = "https://cdn.example.com/geo/berlin-stores.geojson";
 
 async function addGeoJsonLayer(map, { id, url, color }) {
@@ -351,7 +351,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 const STYLE = "https://tiles.openfreemap.org/styles/liberty";
-const PLACES = "/overlays/places/sample-berlin.geojson";
+const PLACES = "/overlays/places/berlin.geojson";
 
 export function BerlinMap() {
   const ref = useRef(null);
@@ -487,7 +487,7 @@ map.on("load", () => {
 });
 
 // Optional: also load public overlays for neighbourhood context
-// await addGeoJsonLayer(map, { id: "places", url: ".../sample-berlin.geojson", color: "#0d6e6e" });</code></pre>
+// await addGeoJsonLayer(map, { id: "places", url: ".../berlin.geojson", color: "#0d6e6e" });</code></pre>
           </article>
 
           <h3>More ideas (not fully coded)</h3>
@@ -528,7 +528,8 @@ map.on("load", () => {
             </li>
             <li>
               <strong>Validate</strong> against
-              <code>schemas/overlay.schema.json</code> (CI runs the same check).
+              <code>schemas/overlay.schema.json</code> and kinds in
+              <code>schemas/taxonomy.json</code> (CI runs the same check).
             </li>
             <li>
               <strong>Open a PR</strong> — for
@@ -537,35 +538,38 @@ map.on("load", () => {
             </li>
             <li>
               <strong>After merge</strong> the overlay lives on git; the demo loads
-              it from paths in the manifest.
+              Berlin files from <code>overlays/&lt;category&gt;/berlin.geojson</code>.
             </li>
           </ol>
 
           <h3>File conventions</h3>
           <pre><code>overlays/
   places/
-    sample-berlin.geojson   # FeatureCollection (required)
-    sample-berlin.meta.yaml # dataset metadata (recommended)
-    README.md               # kinds + category scope</code></pre>
+    berlin.geojson   # FeatureCollection (required)
+    berlin.meta.yaml # dataset metadata (recommended)
+    README.md        # kinds + category scope
+schemas/
+  taxonomy.json      # kinds + review_policy (agents + future MCP)
+  overlay.schema.json</code></pre>
 
           <p>
             Each <code>.geojson</code> is a <strong>FeatureCollection</strong>.
             The companion <code>.meta.yaml</code> describes provenance / city / notes
             for reviewers (not yet validated by CI).
           </p>
-          <pre><code class="language-yaml"># sample-berlin.meta.yaml
-id: places-berlin-sample
+          <pre><code class="language-yaml"># berlin.meta.yaml
+id: places-berlin
 category: places
 city: Berlin
 license: ODbL-1.0
-notes: Sample pins for the MapLibre demo.</code></pre>
+notes: Curated amenity pins for the MapLibre demo.</code></pre>
 
           <h3>Stable IDs</h3>
           <p>
             Every feature has a repo-wide unique <code>properties.id</code>.
-            MVP format (namespace = category):
+            MVP format:
           </p>
-          <pre><code>{category}/{slug}
+          <pre><code>{category}/{city}-{slug}
 # e.g. places/berlin-brandenburg-gate-drinking-water
 #      community/berlin-kreuzberg-repair-cafe</code></pre>
           <p>
@@ -578,7 +582,7 @@ notes: Sample pins for the MapLibre demo.</code></pre>
           <h3>Minimal example (copy-paste for agents)</h3>
           <pre><code class="language-json">{
   "type": "FeatureCollection",
-  "name": "places-berlin-sample",
+  "name": "places-berlin",
   "features": [
     {
       "type": "Feature",
@@ -622,12 +626,18 @@ notes: Sample pins for the MapLibre demo.</code></pre>
           <ul>
             <li>
               Every <code>overlays/**/*.geojson</code> must pass
-              <code>schemas/overlay.schema.json</code>
+              <code>schemas/overlay.schema.json</code> (including kind allow-lists per category)
             </li>
             <li><code>properties.id</code> unique across the whole repo</li>
             <li>
               Local (optional):
-              <code>npx --yes ajv-cli validate -s schemas/overlay.schema.json -d "overlays/**/*.geojson"</code>
+              <code>npm install --no-save ajv@8 ajv-formats@3 &amp;&amp; node scripts/validate-overlays.mjs</code>
+            </li>
+            <li>
+              SDK helpers:
+              <code>validateFeature</code> /
+              <code>validateFeatureCollection</code> in
+              <code>packages/sdk</code>
             </li>
           </ul>
 

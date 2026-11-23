@@ -1,0 +1,178 @@
+{
+  "type": "FeatureCollection",
+  "name": "services-berlin",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.401, 52.524] },
+      "properties": {
+        "id": "services/berlin-mitte-hairdresser",
+        "name": "Hairdresser — Hackescher Markt area",
+        "category": "services",
+        "kind": "hairdresser",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.42, 52.501] },
+      "properties": {
+        "id": "services/berlin-kreuzberg-beauty-salon",
+        "name": "Beauty salon — Kreuzberg",
+        "category": "services",
+        "kind": "beauty_salon",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"], "neighbourhood": "Kreuzberg" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.428, 52.508] },
+      "properties": {
+        "id": "services/berlin-friedrichshain-nail-salon",
+        "name": "Nail salon — Boxhagener Kiez",
+        "category": "services",
+        "kind": "nail_salon",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.39, 52.51] },
+      "properties": {
+        "id": "services/berlin-mitte-tailor",
+        "name": "Tailor / alterations — Mitte",
+        "category": "services",
+        "kind": "tailor",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"], "note": "Alterations & repairs" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.415, 52.505] },
+      "properties": {
+        "id": "services/berlin-kreuzberg-laundry",
+        "name": "Laundry / Waschsalon — Kreuzberg",
+        "category": "services",
+        "kind": "laundry",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women", "caregivers"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.38, 52.52] },
+      "properties": {
+        "id": "services/berlin-mitte-dry-clean",
+        "name": "Dry cleaner — Unter den Linden area",
+        "category": "services",
+        "kind": "dry_clean",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.405, 52.498] },
+      "properties": {
+        "id": "services/berlin-kreuzberg-shoe-repair",
+        "name": "Shoe repair — Kreuzberg",
+        "category": "services",
+        "kind": "shoe_repair",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.355, 52.5] },
+      "properties": {
+        "id": "services/berlin-schoeneberg-midwife",
+        "name": "Midwife practice — Schöneberg",
+        "category": "services",
+        "kind": "midwife",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.35, 52.49] },
+      "properties": {
+        "id": "services/berlin-schoeneberg-gyn-clinic",
+        "name": "Gyn clinic (public listing) — Schöneberg",
+        "category": "services",
+        "kind": "gyn_clinic",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["women"],
+          "note": "Confirm registration and hours before visiting"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.4, 52.53] },
+      "properties": {
+        "id": "services/berlin-wedding-physiotherapy",
+        "name": "Physiotherapy — Wedding",
+        "category": "services",
+        "kind": "physiotherapy",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.425, 52.5] },
+      "properties": {
+        "id": "services/berlin-kreuzberg-yoga",
+        "name": "Yoga studio — Kreuzberg",
+        "category": "services",
+        "kind": "yoga_studio",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [13.388, 52.517] },
+      "properties": {
+        "id": "services/berlin-mitte-cosmetics",
+        "name": "Cosmetics shop — Friedrichstraße area",
+        "category": "services",
+        "kind": "cosmetics_shop",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Berlin", "useful_for": ["women"] }
+      }
+    }
+  ]
+}
