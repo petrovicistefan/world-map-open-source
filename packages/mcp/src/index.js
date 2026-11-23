@@ -17,12 +17,29 @@ import {
   getMapStyleHints,
   proposeFeature,
   featureTemplate,
+  searchFeatures,
+  findNearest,
+  getFeatureById,
+  getProvenance,
+  getEmbedSnippet,
 } from "./repo.js";
 
 const server = new McpServer({
   name: "world-map-open-source",
-  version: "0.1.0",
+  version: "0.2.0",
 });
+
+const CATEGORY = z
+  .enum([
+    "services",
+    "family",
+    "places",
+    "nature",
+    "transport",
+    "culture",
+    "community",
+  ])
+  .optional();
 
 function text(payload) {
   return {
@@ -60,18 +77,9 @@ server.tool(
   "list_overlays",
   "List GeoJSON overlay files under overlays/ (optional category filter)",
   {
-    category: z
-      .enum([
-        "services",
-        "family",
-        "places",
-        "nature",
-        "transport",
-        "culture",
-        "community",
-      ])
-      .optional()
-      .describe("MVP category (services = women-useful; family = kids spaces)"),
+    category: CATEGORY.describe(
+      "MVP category (services = women-useful; family = kids spaces)",
+    ),
   },
   async ({ category }) => {
     const files = listOverlayFiles(category);
@@ -87,9 +95,7 @@ server.tool(
   "get_overlay",
   "Read one FeatureCollection from overlays/ (path relative to repo root)",
   {
-    path: z
-      .string()
-      .describe("e.g. overlays/places/berlin.geojson"),
+    path: z.string().describe("e.g. overlays/places/berlin.geojson"),
   },
   async ({ path }) => {
     try {
@@ -109,9 +115,7 @@ server.tool(
   "validate_overlay",
   "Validate a GeoJSON overlay file (SDK taxonomy checks + cross-file unique ids)",
   {
-    path: z
-      .string()
-      .describe("e.g. overlays/nature/berlin.geojson"),
+    path: z.string().describe("e.g. overlays/nature/berlin.geojson"),
   },
   async ({ path }) => {
     try {
@@ -130,24 +134,78 @@ server.tool(
 );
 
 server.tool(
+  "search_features",
+  "Search curated overlay features by category, kind, text, and/or bbox [west,south,east,north]",
+  {
+    category: CATEGORY,
+    kind: z.string().optional(),
+    q: z.string().optional().describe("Substring match on name/id/kind"),
+    bbox: z
+      .array(z.number())
+      .length(4)
+      .optional()
+      .describe("[west, south, east, north]"),
+    limit: z.number().int().min(1).max(200).optional(),
+  },
+  async (args) => text(searchFeatures(args)),
+);
+
+server.tool(
+  "find_nearest",
+  "Nearest N Point features to a lon/lat (haversine km)",
+  {
+    lon: z.number(),
+    lat: z.number(),
+    n: z.number().int().min(1).max(50).optional(),
+    category: CATEGORY,
+    kind: z.string().optional(),
+  },
+  async (args) => text(findNearest(args)),
+);
+
+server.tool(
+  "get_feature",
+  "Get one feature by properties.id",
+  {
+    id: z.string().describe("e.g. family/berlin-tiergarten-playground"),
+  },
+  async ({ id }) => text(getFeatureById(id)),
+);
+
+server.tool(
+  "get_provenance",
+  "source / verified_at / license for a feature id or overlay file path",
+  {
+    id: z.string().optional(),
+    path: z.string().optional().describe("e.g. overlays/family/berlin.geojson"),
+  },
+  async (args) => text(getProvenance(args)),
+);
+
+server.tool(
+  "get_embed_snippet",
+  "HTML/iframe snippet to drop the map into another demo (Pages URLs). Show-only — no PR required.",
+  {
+    base: z
+      .string()
+      .optional()
+      .describe(
+        "Absolute base URL (default GitHub Pages). Local: http://localhost:5173",
+      ),
+  },
+  async ({ base }) => text(getEmbedSnippet({ base })),
+);
+
+server.tool(
   "propose_feature",
   "Validate a GeoJSON Feature draft; optionally append to overlays/<category>/<dataset> (never commits or pushes)",
   {
     feature: z
       .any()
       .describe("GeoJSON Feature object with properties.id, category, kind, etc."),
-    category: z
-      .enum([
-        "services",
-        "family",
-        "places",
-        "nature",
-        "transport",
-        "culture",
-        "community",
-      ])
-      .optional()
-      .describe("Override/enforce category (services for women; family for kids)"),
+    category: CATEGORY.describe(
+      "Override/enforce category (services for women; family for kids)",
+    ),
     dataset: z
       .string()
       .optional()
@@ -171,7 +229,7 @@ server.tool(
 );
 
 console.error(
-  `[world-map-mcp] repo=${getRepoRoot()} stdio ready (list_layers, list_overlays, get_overlay, validate_overlay, get_map_style, propose_feature)`,
+  `[world-map-mcp] repo=${getRepoRoot()} stdio ready (list_layers, search_features, find_nearest, get_feature, get_embed_snippet, propose_feature, …)`,
 );
 
 const transport = new StdioServerTransport();

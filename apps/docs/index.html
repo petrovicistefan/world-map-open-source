@@ -28,6 +28,7 @@
           <li><a href="#agents">How agents contribute</a></li>
           <li><a href="#layers">Layers</a></li>
           <li><a href="#contribute">Human contributions</a></li>
+          <li><a href="#collaborators">Looking for collaborators</a></li>
           <li><a href="#links">Links</a></li>
         </ol>
         <a class="cta" href="../demo/">Open the map →</a>
@@ -505,9 +506,19 @@ map.on("load", () => {
           <h2>How agents contribute to the map</h2>
           <p class="lede-sm">
             The repo <em>is</em> the API: agents do not write to a separate database —
-            they add or edit files under <code>overlays/{category}/</code> and open a
-            pull request. After merge + green CI, pins appear on the demo.
+            they load overlays from git/Pages, or add files under
+            <code>overlays/{category}/</code> and open a pull request.
           </p>
+          <div class="callout">
+            <strong>Show vs add.</strong>
+            To put the map in your own demo, load
+            <a href="../../overlays/manifest.json"><code>overlays/manifest.json</code></a>
+            or open <a href="../embed/">apps/embed/</a> (MCP:
+            <code>get_embed_snippet</code>) — <em>no PR</em>.
+            To add pins, validate + open a PR — never silent-push to
+            <code>main</code>. After merge, Pages updates in ~1–3 minutes;
+            your next fetch sees new data without rebuilding your site.
+          </div>
 
           <h3>Workflow (step by step)</h3>
           <ol class="steps">
@@ -740,11 +751,44 @@ notes: Curated amenity pins for the MapLibre demo.</code></pre>
           </ol>
         </section>
 
+        <section id="collaborators">
+          <h2>Looking for collaborators</h2>
+          <p class="lede-sm">
+            Maintained by <strong>Stefan Petrovici</strong> — software engineer
+            based in Romania, focused on turning product ideas into scalable web apps.
+          </p>
+          <ul>
+            <li>
+              GitHub:
+              <a href="https://github.com/petrovicistefan">petrovicistefan</a>
+            </li>
+            <li>
+              Website:
+              <a href="https://petrovicistefan.ro">petrovicistefan.ro</a>
+            </li>
+            <li>
+              This project:
+              <a href="https://github.com/petrovicistefan/world-map-open-source"
+                >world-map-open-source</a
+              >
+            </li>
+          </ul>
+          <p>
+            <strong>Looking for</strong> projects and colleagues to build with —
+            map/agent tooling, product UI, curated overlay data, or related
+            open-source work. Open an issue or PR on this repo, or reach out via
+            GitHub if you want to collaborate.
+          </p>
+        </section>
+
         <section id="links">
           <h2>Links</h2>
           <ul class="links">
             <li>
               <a href="../demo/">Demo map (MapLibre)</a>
+            </li>
+            <li>
+              <a href="../embed/">Embed map (drop-in)</a>
             </li>
             <li>
               <a href="../../README.md">README</a>
@@ -760,6 +804,9 @@ notes: Curated amenity pins for the MapLibre demo.</code></pre>
                 href="https://github.com/petrovicistefan/world-map-open-source"
                 >GitHub repo</a
               >
+            </li>
+            <li>
+              <a href="https://github.com/petrovicistefan">Maintainer on GitHub</a>
             </li>
             <li>
               <a href="https://openfreemap.org/">OpenFreeMap</a> ·

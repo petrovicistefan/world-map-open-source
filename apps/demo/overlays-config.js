@@ -1,16 +1,11 @@
-/** Overlay manifest — paths relative to apps/demo/ (serve repo root). */
-export const OVERLAY_MANIFEST = [
-  { id: "services", url: "../../overlays/services/berlin.geojson" },
-  { id: "family", url: "../../overlays/family/berlin.geojson" },
-  { id: "places", url: "../../overlays/places/berlin.geojson" },
-  { id: "nature", url: "../../overlays/nature/berlin.geojson" },
-  { id: "transport", url: "../../overlays/transport/berlin.geojson" },
-  { id: "culture", url: "../../overlays/culture/berlin.geojson" },
-  { id: "community", url: "../../overlays/community/berlin.geojson" },
-];
+/** Resolve repo-root paths while serving from apps/demo/. */
+export const REPO_BASE = new URL("../..", import.meta.url).href.replace(
+  /\/$/,
+  "",
+);
 
-/** Taxonomy path (icon + color per layer). */
-export const TAXONOMY_URL = "../../schemas/taxonomy.json";
+export const MANIFEST_URL = `${REPO_BASE}/overlays/manifest.json`;
+export const TAXONOMY_URL = `${REPO_BASE}/schemas/taxonomy.json`;
 
 /**
  * Load an SVG as a MapLibre image (HTMLImageElement).
@@ -35,4 +30,12 @@ export async function loadSvgImage(url) {
   } finally {
     URL.revokeObjectURL(objectUrl);
   }
+}
+
+/**
+ * @param {string} base
+ * @param {string} path
+ */
+export function joinUrl(base, path) {
+  return `${base.replace(/\/$/, "")}/${String(path).replace(/^\//, "")}`;
 }

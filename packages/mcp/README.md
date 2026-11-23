@@ -13,6 +13,11 @@ Prefer editing GeoJSON directly when possible; MCP is a convenience facade.
 | `get_overlay` | Read one FeatureCollection |
 | `validate_overlay` | Schema/taxonomy + unique id checks |
 | `get_map_style` | OpenFreeMap style URL + layer colors |
+| `search_features` | Filter by category / kind / text / bbox |
+| `find_nearest` | Nearest N pins to lon/lat |
+| `get_feature` | Lookup by `properties.id` |
+| `get_provenance` | source / verified_at / license |
+| `get_embed_snippet` | Drop-in HTML/iframe (show map — no PR) |
 | `propose_feature` | Validate a Feature; optional `write=true` append (no commit) |
 
 ## Setup
@@ -42,15 +47,9 @@ Add to MCP config (example):
 }
 ```
 
-## Inspector (manual test)
-
-```bash
-cd packages/mcp
-npm run inspect
-```
-
 ## Agent rules
 
-- Prefer `propose_feature` with `write=false` first; only write when the user asks.
+- **Show map:** `get_embed_snippet` / Pages embed — no PR.
+- **Add data:** `propose_feature` with `write=false` first; only write when the user asks; then open a PR.
 - Never commit or push from MCP tools.
 - `community` → `source: "agent"` + `extra.needs_review: true` + human review PR.

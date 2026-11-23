@@ -13,7 +13,14 @@
         "source": "survey",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Berlin", "useful_for": ["children"], "neighbourhood": "Kreuzberg" }
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children"],
+          "neighbourhood": "Kreuzberg",
+          "fenced": true,
+          "shade": true,
+          "stroller": true
+        }
       }
     },
     {
@@ -27,7 +34,15 @@
         "source": "osm-gap",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Berlin", "useful_for": ["children"] }
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children"],
+          "fenced": false,
+          "shade": true,
+          "age_min": 2,
+          "age_max": 12,
+          "stroller": true
+        }
       }
     },
     {
@@ -101,7 +116,13 @@
         "source": "survey",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Berlin", "useful_for": ["children"], "fee": true }
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children"],
+          "fee": true,
+          "changing_location": "unisex_toilet",
+          "stroller": true
+        }
       }
     },
     {
@@ -115,7 +136,12 @@
         "source": "osm-gap",
         "verified_at": "2026-03-20",
         "license": "ODbL-1.0",
-        "extra": { "city": "Berlin", "useful_for": ["children", "women"] }
+        "extra": {
+          "city": "Berlin",
+          "useful_for": ["children", "women"],
+          "nursing_privacy": "high",
+          "stroller": true
+        }
       }
     },
     {

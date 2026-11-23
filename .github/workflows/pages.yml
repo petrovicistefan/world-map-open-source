@@ -23,7 +23,7 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir -p _site/apps _site/overlays _site/docs
-          cp -R apps/docs apps/demo _site/apps/
+          cp -R apps/docs apps/demo apps/embed _site/apps/
           cp -R overlays/* _site/overlays/
           mkdir -p _site/assets
           cp -R assets/* _site/assets/ 2>/dev/null || true

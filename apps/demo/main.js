@@ -1,7 +1,9 @@
 import {
-  OVERLAY_MANIFEST,
+  MANIFEST_URL,
   TAXONOMY_URL,
+  REPO_BASE,
   loadSvgImage,
+  joinUrl,
 } from "./overlays-config.js";
 
 const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
@@ -28,13 +30,14 @@ const map = new maplibregl.Map({
   dragRotate: false,
   pitchWithRotate: false,
   touchPitch: false,
-  // Keep the basemap flat (no tilt / extrusion UI)
   renderWorldCopies: true,
 });
 
-// Zoom only — no compass / 3D tilt
 map.addControl(
-  new maplibregl.NavigationControl({ showCompass: false, visualizePitch: false }),
+  new maplibregl.NavigationControl({
+    showCompass: false,
+    visualizePitch: false,
+  }),
   "top-right",
 );
 
@@ -58,7 +61,8 @@ function flattenBasemap() {
 
 map.on("style.load", flattenBasemap);
 
-const layerIds = OVERLAY_MANIFEST.map((e) => e.id);
+/** @type {string[]} */
+let layerIds = [];
 
 /** @type {string | null} */
 let activeFilter = null;
@@ -86,7 +90,6 @@ function setLayerVisible(id, visible) {
   }
 }
 
-/** True if the pin is on the visible map canvas (not under the sidebar). */
 function isOnVisibleMap(item) {
   const [lon, lat] = item.coordinates;
   const pt = map.project([lon, lat]);
@@ -101,10 +104,6 @@ function isOnVisibleMap(item) {
   return pt.x >= leftPad && pt.x <= w && pt.y >= 0 && pt.y <= h;
 }
 
-/**
- * Sidebar list = pins visible on the map (+ chip filter),
- * then search narrows only among those — never outside the viewport.
- */
 function visibleItems() {
   const onScreen = allItems.filter((item) => {
     if (activeFilter !== null && item.category !== activeFilter) return false;
@@ -126,11 +125,21 @@ function syncClearButton() {
   clearBtn.hidden = searchQuery.trim() === "";
 }
 
+function directionsUrl(lon, lat) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+}
+
 function popupHtml(item) {
+  const [lon, lat] = item.coordinates;
+  const maps = directionsUrl(lon, lat);
+  const apple = `https://maps.apple.com/?daddr=${lat},${lon}`;
   return `<strong>${item.name}</strong><br/>
     <code>${item.id}</code><br/>
     ${item.category}/${item.kind}<br/>
-    source: ${item.source ?? "—"}`;
+    source: ${item.source ?? "—"}<br/>
+    <a href="${maps}" target="_blank" rel="noopener">Directions (Google)</a>
+    ·
+    <a href="${apple}" target="_blank" rel="noopener">Apple</a>`;
 }
 
 function focusItem(item) {
@@ -234,7 +243,11 @@ function applyFilter(filterId) {
   }
 }
 
-function buildChips(taxonomy) {
+/**
+ * @param {object} taxonomy
+ * @param {Array<{ id: string, icon?: string }>} overlayEntries
+ */
+function buildChips(taxonomy, overlayEntries) {
   const root = document.getElementById("chips");
   if (!root) return;
   root.innerHTML = "";
@@ -263,11 +276,11 @@ function buildChips(taxonomy) {
   };
 
   makeChip("all", CHIP_LABELS.all, null);
-  for (const entry of OVERLAY_MANIFEST) {
+  for (const entry of overlayEntries) {
     const meta = categoryMeta(taxonomy, entry.id);
     const icon = meta?.icon
-      ? `../../${meta.icon}`
-      : `../../assets/icons/${entry.id}.svg`;
+      ? joinUrl(REPO_BASE, meta.icon)
+      : joinUrl(REPO_BASE, `assets/icons/${entry.id}.svg`);
     makeChip(entry.id, CHIP_LABELS[entry.id] ?? entry.id, icon);
   }
 }
@@ -295,120 +308,134 @@ searchClear?.addEventListener("click", () => {
   renderResultsList();
 });
 
-// Sidebar follows the map viewport
 map.on("moveend", () => {
   renderResultsList();
 });
 
-map.on("load", async () => {
-  flattenBasemap();
+/**
+ * @param {object} taxonomy
+ * @param {{ id: string, url: string, color?: string, icon?: string }} entry
+ */
+async function addOverlayLayer(taxonomy, entry) {
+  const meta = categoryMeta(taxonomy, entry.id);
+  const iconPath = meta?.icon
+    ? joinUrl(REPO_BASE, meta.icon)
+    : joinUrl(REPO_BASE, entry.icon || `assets/icons/${entry.id}.svg`);
+  const color = meta?.color ?? entry.color ?? "#333";
 
-  const taxonomy = await fetch(TAXONOMY_URL).then((r) => {
-    if (!r.ok) throw new Error("Failed to load taxonomy");
+  try {
+    const img = await loadSvgImage(iconPath);
+    if (!map.hasImage(`icon-${entry.id}`)) {
+      map.addImage(`icon-${entry.id}`, img, { sdf: false });
+    }
+  } catch (err) {
+    console.warn("Icon load failed:", entry.id, err);
+  }
+
+  const dataUrl = joinUrl(REPO_BASE, entry.url);
+  const data = await fetch(dataUrl).then((r) => {
+    if (!r.ok) throw new Error(`Failed to load ${dataUrl}`);
     return r.json();
   });
 
-  buildChips(taxonomy);
-  allItems = [];
-
-  for (const entry of OVERLAY_MANIFEST) {
-    const meta = categoryMeta(taxonomy, entry.id);
-    const iconPath = meta?.icon
-      ? `../../${meta.icon}`
-      : `../../assets/icons/${entry.id}.svg`;
-    const color = meta?.color ?? "#333";
-
-    try {
-      const img = await loadSvgImage(iconPath);
-      if (!map.hasImage(`icon-${entry.id}`)) {
-        map.addImage(`icon-${entry.id}`, img, { sdf: false });
-      }
-    } catch (err) {
-      console.warn("Icon load failed:", entry.id, err);
-    }
-
-    const data = await fetch(entry.url).then((r) => {
-      if (!r.ok) throw new Error(`Failed to load ${entry.url}`);
-      return r.json();
-    });
-
-    for (const f of data.features || []) {
-      const p = f.properties || {};
-      const coords = f.geometry?.coordinates;
-      if (!p.id || !coords) continue;
-      allItems.push({
-        id: p.id,
-        name: p.name || p.id,
-        category: p.category || entry.id,
-        kind: p.kind || "",
-        source: p.source || "",
-        coordinates: coords,
-        icon: iconPath,
-      });
-    }
-
-    const sourceId = `src-${entry.id}`;
-    const circleId = `lyr-${entry.id}-circle`;
-    const symbolId = `lyr-${entry.id}`;
-
-    map.addSource(sourceId, { type: "geojson", data });
-
-    map.addLayer({
-      id: circleId,
-      type: "circle",
-      source: sourceId,
-      paint: {
-        "circle-radius": 11,
-        "circle-color": color,
-        "circle-opacity": 0.18,
-      },
-    });
-
-    if (map.hasImage(`icon-${entry.id}`)) {
-      map.addLayer({
-        id: symbolId,
-        type: "symbol",
-        source: sourceId,
-        layout: {
-          "icon-image": `icon-${entry.id}`,
-          "icon-size": 0.45,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true,
-        },
-      });
-    } else {
-      map.addLayer({
-        id: symbolId,
-        type: "circle",
-        source: sourceId,
-        paint: {
-          "circle-radius": 7,
-          "circle-color": color,
-          "circle-stroke-width": 1.5,
-          "circle-stroke-color": "#fff",
-        },
-      });
-    }
-
-    map.on("click", symbolId, (e) => {
-      const f = e.features?.[0];
-      if (!f) return;
-      const id = f.properties?.id;
-      const item = allItems.find((x) => x.id === id);
-      if (item) {
-        setResultsExpanded(true);
-        focusItem(item);
-      }
-    });
-    map.on("mouseenter", symbolId, () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-    map.on("mouseleave", symbolId, () => {
-      map.getCanvas().style.cursor = "";
+  for (const f of data.features || []) {
+    const p = f.properties || {};
+    const coords = f.geometry?.coordinates;
+    if (!p.id || !coords) continue;
+    allItems.push({
+      id: p.id,
+      name: p.name || p.id,
+      category: p.category || entry.id,
+      kind: p.kind || "",
+      source: p.source || "",
+      coordinates: coords,
+      icon: iconPath,
     });
   }
 
-  // Stable order in the list
+  const sourceId = `src-${entry.id}`;
+  const circleId = `lyr-${entry.id}-circle`;
+  const symbolId = `lyr-${entry.id}`;
+
+  map.addSource(sourceId, { type: "geojson", data });
+
+  map.addLayer({
+    id: circleId,
+    type: "circle",
+    source: sourceId,
+    paint: {
+      "circle-radius": 11,
+      "circle-color": color,
+      "circle-opacity": 0.18,
+    },
+  });
+
+  if (map.hasImage(`icon-${entry.id}`)) {
+    map.addLayer({
+      id: symbolId,
+      type: "symbol",
+      source: sourceId,
+      layout: {
+        "icon-image": `icon-${entry.id}`,
+        "icon-size": 0.45,
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true,
+      },
+    });
+  } else {
+    map.addLayer({
+      id: symbolId,
+      type: "circle",
+      source: sourceId,
+      paint: {
+        "circle-radius": 7,
+        "circle-color": color,
+        "circle-stroke-width": 1.5,
+        "circle-stroke-color": "#fff",
+      },
+    });
+  }
+
+  map.on("click", symbolId, (e) => {
+    const f = e.features?.[0];
+    if (!f) return;
+    const id = f.properties?.id;
+    const item = allItems.find((x) => x.id === id);
+    if (item) {
+      setResultsExpanded(true);
+      focusItem(item);
+    }
+  });
+  map.on("mouseenter", symbolId, () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+  map.on("mouseleave", symbolId, () => {
+    map.getCanvas().style.cursor = "";
+  });
+}
+
+map.on("load", async () => {
+  flattenBasemap();
+
+  const [taxonomy, manifest] = await Promise.all([
+    fetch(TAXONOMY_URL).then((r) => {
+      if (!r.ok) throw new Error("Failed to load taxonomy");
+      return r.json();
+    }),
+    fetch(MANIFEST_URL).then((r) => {
+      if (!r.ok) throw new Error("Failed to load overlay manifest");
+      return r.json();
+    }),
+  ]);
+
+  const overlays = manifest.overlays || [];
+  layerIds = overlays.map((e) => e.id);
+  buildChips(taxonomy, overlays);
+  allItems = [];
+
+  // Basemap already painted — load overlays in parallel
+  await Promise.all(overlays.map((entry) => addOverlayLayer(taxonomy, entry)));
+
   allItems.sort((a, b) => a.name.localeCompare(b.name));
   applyFilter(null);
 });
