@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "name": "community-bucharest-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.1200, 44.4300]
+      },
+      "properties": {
+        "id": "community/bucharest-repair-cafe-sample",
+        "name": "Repair Café (sample — verify before publishing)",
+        "category": "community",
+        "kind": "repair_cafe",
+        "source": "agent",
+        "license": "ODbL-1.0",
+        "extra": {
+          "city": "Bucharest",
+          "needs_review": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+---
+description: Core World Map Open Source conventions — basemap, overlays, local vs repo
+alwaysApply: true
+---
+
+# World Map Open Source — Core
+
+## Product boundary
+
+- Reuse **OpenFreeMap** tiles + **MapLibre**. Never invent a tile farm or copy OSM dumps into this repo.
+- Differentiation = **git-native GeoJSON overlays** + thin SDK + agent/human PRs.
+- Full plan: `docs/PLAN.md`.
+
+## Local vs repo
+
+| Commit to GitHub | Keep local / ignore |
+|------------------|---------------------|
+| `overlays/`, `schemas/`, `apps/`, `packages/`, docs, CI | Personal agent stores, secrets, `.env` |
+| `.cursor/rules/`, `.cursor/skills/` (shared) | Private Cursor memories |
+
+## Agent contribution rules
+
+- Add map data only under `overlays/<category>/` as FeatureCollections.
+- MVP categories: `places`, `nature`, `transport`, `culture`, `community`.
+- Every feature needs stable `properties.id`, `category`, `kind`, `source`, `license`.
+- No PII. No silent force-push. Do not commit unless the user asks.
+- For `community` (and later `hazards`): draft only; flag for human review.

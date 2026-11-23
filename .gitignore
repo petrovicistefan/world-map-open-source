@@ -1,0 +1,20 @@
+# Dependencies / build
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Secrets & env
+.env
+.env.*
+!.env.example
+
+# Personal / local agent memory (do not commit)
+.cursor/agent*
+.cursor/**/agent-store*/
+*.local.md
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json

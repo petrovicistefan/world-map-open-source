@@ -1,0 +1,11 @@
+---
+description: Do not reinvent OSM, tiles, or basemap hosting
+alwaysApply: true
+---
+
+# Do Not Reinvent OSM
+
+- Basemap = OpenFreeMap (or equivalent free MapLibre style URL). Configure style URL; do not vendor tiles.
+- Do not scrape/bulk-import large OSM extracts into `overlays/`. Overlays fill **gaps** and curated themes.
+- If a feature already exists well in OSM/OFM, prefer linking/`source: osm-gap` only when we add value (verification, hours, community context).
+- SDK and demo must stay thin: load GeoJSON → MapLibre sources/layers. No geocoder farm, no tile cache server in-repo for MVP.

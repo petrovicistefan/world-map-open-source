@@ -1,0 +1,99 @@
+:root {
+  --ink: #1a2332;
+  --panel: #f7f3eb;
+  --accent: #0d6e6e;
+  --line: #d4cbb8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  color: var(--ink);
+}
+
+body {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+}
+
+.panel {
+  padding: 1.25rem 1.1rem;
+  background: linear-gradient(165deg, #f7f3eb 0%, #e8efe9 55%, #dfe8f0 100%);
+  border-right: 1px solid var(--line);
+  overflow: auto;
+}
+
+.panel h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.tagline {
+  margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.75rem 0.85rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+legend {
+  padding: 0 0.35rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.maplibregl-popup-content {
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 720px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .panel {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #map {
+    min-height: 60vh;
+  }
+}

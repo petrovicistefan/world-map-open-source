@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "name": "transport-bucharest-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.0963, 44.4392]
+      },
+      "properties": {
+        "id": "transport/bucharest-universitate-bike-parking",
+        "name": "Bike parking — Universitate",
+        "category": "transport",
+        "kind": "bike_parking",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Bucharest", "covered": false }
+      }
+    }
+  ]
+}

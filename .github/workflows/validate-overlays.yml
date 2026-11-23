@@ -1,0 +1,46 @@
+name: Validate overlays
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate GeoJSON against schema
+        run: |
+          npm install --global ajv-cli ajv-formats
+          shopt -s globstar nullglob
+          files=(overlays/**/*.geojson)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No overlay files found"
+            exit 1
+          fi
+          for f in "${files[@]}"; do
+            echo "Validating $f"
+            ajv validate -s schemas/overlay.schema.json -d "$f" --spec=draft2020 || exit 1
+          done
+      - name: Check unique feature ids
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys
+          ids = {}
+          for path in pathlib.Path("overlays").rglob("*.geojson"):
+              data = json.loads(path.read_text())
+              for i, feat in enumerate(data.get("features", [])):
+                  fid = (feat.get("properties") or {}).get("id")
+                  if not fid:
+                      print(f"MISSING id: {path} feature[{i}]")
+                      sys.exit(1)
+                  if fid in ids:
+                      print(f"DUPLICATE id {fid}: {ids[fid]} and {path}")
+                      sys.exit(1)
+                  ids[fid] = str(path)
+          print(f"OK — {len(ids)} unique feature ids")
+          PY

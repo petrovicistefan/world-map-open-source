@@ -1,0 +1,11 @@
+{
+  "name": "@world-map-open-source/sdk",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "description": "Thin helpers to list, load, and describe curated map overlays"
+}

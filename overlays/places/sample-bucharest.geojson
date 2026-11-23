@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "name": "places-bucharest-sample",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.0910, 44.4368]
+      },
+      "properties": {
+        "id": "places/bucharest-cismigiu-drinking-water",
+        "name": "Drinking fountain — Cișmigiu",
+        "category": "places",
+        "kind": "drinking_water",
+        "source": "survey",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "extra": { "city": "Bucharest" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [26.1025, 44.4365]
+      },
+      "properties": {
+        "id": "places/bucharest-national-library",
+        "name": "Biblioteca Națională a României",
+        "category": "places",
+        "kind": "library",
+        "source": "osm-gap",
+        "verified_at": "2026-03-20",
+        "license": "ODbL-1.0",
+        "website": "https://www.bibnat.ro/",
+        "extra": { "city": "Bucharest" }
+      }
+    }
+  ]
+}

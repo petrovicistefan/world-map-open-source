@@ -1,0 +1,38 @@
+---
+description: GeoJSON overlay schema and category conventions
+globs: overlays/**/*.geojson,schemas/**/*.json
+alwaysApply: false
+---
+
+# Overlay Schema Rules
+
+## File shape
+
+- Root must be a GeoJSON `FeatureCollection`.
+- One logical dataset per file under `overlays/<category>/`.
+- Prefer Points in MVP; LineString/Polygon only when the feature is truly linear/areal.
+
+## Required properties (each Feature)
+
+```
+id, name, category, kind, source, license
+```
+
+- `id`: unique repo-wide, kebab-case, prefer `category/slug`
+- `category`: must match parent folder name
+- `kind`: from the category allow-list in `docs/PLAN.md` / category README
+- `source`: `survey` | `osm-gap` | `agent` | `import`
+- `license`: default `ODbL-1.0` unless justified otherwise
+- Optional: `verified_at` (ISO date), `website`, `opening_hours`, `extra` object
+
+## Do / Don't
+
+```json
+// ✅ GOOD
+{ "properties": { "id": "places/bucharest-cișmigiu-water", "category": "places", "kind": "drinking_water", "source": "survey", "license": "ODbL-1.0", "name": "…" } }
+
+// ❌ BAD — missing id/category; private phone in properties
+{ "properties": { "name": "My house", "phone": "+40…" } }
+```
+
+Validate against `schemas/overlay.schema.json` before finishing.
