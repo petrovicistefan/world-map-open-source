@@ -27,28 +27,10 @@ jobs:
           cp -R overlays/* _site/overlays/
           cp -R docs/* _site/docs/ 2>/dev/null || true
           cp README.md CONTRIBUTING.md _site/
-          # Docs link to agent skill markdown; include if present
+          cp apps/pages-root.html _site/index.html
           if [ -d .cursor/skills/add-overlay ]; then
             cp -R .cursor/skills/add-overlay _site/.cursor/skills/
           fi
-          # Friendly landing at site root
-          cat > _site/index.html <<'EOF'
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=apps/docs/" />
-    <title>World Map Open Source</title>
-    <link rel="canonical" href="apps/docs/" />
-  </head>
-  <body>
-    <p>
-      <a href="apps/docs/">Documentation</a> ·
-      <a href="apps/demo/">Map demo</a>
-    </p>
-  </body>
-</html>
-EOF
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
