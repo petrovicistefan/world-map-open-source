@@ -85,5 +85,5 @@ docs/PLAN.md  product plan
 
 ## License
 
-Overlay data default: **ODbL-1.0** (see feature `license` property).  
-Code: TBD (propose MIT when publishing).
+- **Code** (apps, packages, scripts, docs UI): [MIT](LICENSE) — Copyright (c) 2026 Stefan Petrovici
+- **Overlay data** (GeoJSON under `overlays/`): default **ODbL-1.0** (see each feature’s `license` property)
