@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World Map Open Source — Berlin trains</title>
+    <meta
+      name="description"
+      content="Long-distance corridors to Berlin: Hamburg, Leipzig, Dresden — stations + simulated trains on MapLibre + OpenFreeMap."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <link
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <aside class="panel" id="panel">
+      <header class="panel-head">
+        <h1>Berlin trains</h1>
+        <p class="panel-sub">
+          ICE into Berlin — real stations, few stops
+        </p>
+      </header>
+
+      <div class="panel-section">
+        <div class="section-label">Corridors</div>
+        <div class="route-list" id="route-list" role="group" aria-label="Train lines"></div>
+      </div>
+
+      <div class="panel-section controls">
+        <label class="toggle">
+          <input type="checkbox" id="toggle-vehicles" checked />
+          <span>Moving trains</span>
+        </label>
+        <label class="speed">
+          <span>~140 km/h</span>
+          <input
+            type="range"
+            id="speed"
+            min="0.5"
+            max="3"
+            step="0.25"
+            value="1"
+            aria-label="Speed multiplier on train pace"
+          />
+          <span class="speed-val" id="speed-val">1×</span>
+        </label>
+      </div>
+
+      <p class="panel-note">
+        Real ICE stops + Fernbahn approaches. Two trains per corridor
+        (random placement + direction) at ~140 km/h. Simulated — not live.
+      </p>
+
+      <nav class="panel-nav">
+        <a href="../transit-demo/">Berlin buses</a>
+        <a href="../demo/">Pins demo</a>
+        <a href="../docs/">Docs</a>
+      </nav>
+    </aside>
+
+    <p class="status" id="status">Loading corridors…</p>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

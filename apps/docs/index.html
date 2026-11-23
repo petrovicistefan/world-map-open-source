@@ -21,6 +21,7 @@
       <nav class="top-nav" aria-label="Primary">
         <a href="../demo/">Demo map</a>
         <a href="../transit-demo/">Berlin buses</a>
+        <a href="../train-demo/">Berlin trains</a>
         <a href="https://github.com/petrovicistefan/world-map-open-source">GitHub</a>
       </nav>
     </header>
@@ -70,7 +71,8 @@
           <h3>1. Serve the repo locally</h3>
           <pre><code>python3 -m http.server 5173
 # Demo:    http://localhost:5173/apps/demo/
-# Transit: http://localhost:5173/apps/transit-demo/
+# Buses:   http://localhost:5173/apps/transit-demo/
+# Trains:  http://localhost:5173/apps/train-demo/
 # Docs:  http://localhost:5173/apps/docs/</code></pre>
 
           <h3>2. MapLibre + OpenFreeMap</h3>
@@ -108,14 +110,24 @@ const map = new maplibregl.Map({
             (<code>main.js</code> + <code>overlays-config.js</code>).
           </p>
 
-          <h3>Berlin bus routes</h3>
+          <h3>Berlin buses &amp; trains</h3>
           <p>
-            Separate demo:
-            <a href="../transit-demo/"><code>apps/transit-demo/</code></a>
-            — BVG lines <strong>100</strong>, <strong>200</strong>, <strong>M41</strong>
-            with VBB GTFS shapes and stops. Static route lines; simulated buses
-            run both directions at ~22&nbsp;km/h (grow 1s at stops). Not live GTFS-RT.
+            Companion demos with static routes and simulated vehicles (not live
+            GTFS-RT):
           </p>
+          <ul>
+            <li>
+              <a href="../transit-demo/"><code>apps/transit-demo/</code></a>
+              — BVG <strong>100</strong>, <strong>200</strong>, <strong>M41</strong>
+              (VBB GTFS). Buses both directions at ~22&nbsp;km/h; grow 1s at stops.
+            </li>
+            <li>
+              <a href="../train-demo/"><code>apps/train-demo/</code></a>
+              — ICE <strong>Hamburg</strong> / <strong>Leipzig</strong> /
+              <strong>Dresden</strong> ↔ Berlin. Two trains per corridor
+              (random phase + direction) at ~140&nbsp;km/h.
+            </li>
+          </ul>
         </section>
 
         <section id="examples">
