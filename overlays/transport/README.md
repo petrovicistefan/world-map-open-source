@@ -18,4 +18,4 @@ Micromobility and last-mile infrastructure often incomplete on basemaps.
 3. Id format: `transport/{city}-{slug}`.
 4. Validate → PR → merge → visible on demo.
 
-See `docs/PLAN.md` and `.cursor/skills/add-overlay`.
+See `docs/PLAN.md` and `CONTRIBUTING.md`.

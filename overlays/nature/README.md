@@ -20,4 +20,4 @@ Outdoors and landscape-oriented features.
 3. Id format: `nature/{city}-{slug}`.
 4. Validate → PR → merge → visible on demo.
 
-See `docs/PLAN.md` and `.cursor/skills/add-overlay`.
+See `docs/PLAN.md` and `CONTRIBUTING.md`.

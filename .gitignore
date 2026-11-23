@@ -9,9 +9,10 @@ dist/
 .env.*
 !.env.example
 
-# Personal / local agent memory (do not commit)
-.cursor/agent*
-.cursor/**/agent-store*/
+# Cursor (local only — rules/skills stay on disk, not in git)
+.cursor/
+
+# Personal notes
 *.local.md
 
 # Editors

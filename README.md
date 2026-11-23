@@ -46,7 +46,7 @@ Full plan: **[docs/PLAN.md](docs/PLAN.md)**
 
 ## Contribute
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Agents: use `.cursor/skills/add-overlay`.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 npm install --no-save ajv@8 ajv-formats@3
@@ -65,8 +65,9 @@ packages/sdk/ plain ESM validate helpers
 packages/mcp/ optional file-backed MCP server
 scripts/      validate-overlays.mjs (CI)
 docs/PLAN.md  product plan
-.cursor/      shared rules + skills for AI agents
 ```
+
+`.cursor/` is local-only (gitignored).
 
 ## License
 

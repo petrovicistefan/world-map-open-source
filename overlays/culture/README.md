@@ -18,4 +18,4 @@ Art, venues, and cultural landmarks curated by contributors.
 3. Id format: `culture/{city}-{slug}`.
 4. Validate → PR → merge → visible on demo.
 
-See `docs/PLAN.md` and `.cursor/skills/add-overlay`.
+See `docs/PLAN.md` and `CONTRIBUTING.md`.

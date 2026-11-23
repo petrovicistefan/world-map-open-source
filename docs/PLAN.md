@@ -26,12 +26,10 @@ A thin open-source layer on top of free basemaps where **humans and AI agents** 
 | Path | Purpose | Git? |
 |------|---------|------|
 | `docs/PLAN.md` | Full product plan + taxonomy | **Commit** (shared roadmap) |
-| `.cursor/plans/` | Cursor-facing plan pointer | **Commit** |
-| `.cursor/rules/` | Agent conventions for this repo | **Commit** |
-| `.cursor/skills/` | How to add overlays / layers | **Commit** |
+| `.cursor/` | Local Cursor rules/skills/plans | **Never commit** (gitignored) |
 | Agent stores / personal notes | Private agent memory | **Never commit** |
 
-**Recommendation:** Commit `.cursor/rules` and `.cursor/skills` so every contributor (human or agent) gets the same conventions. Keep personal Cursor agent stores and secrets out of git (see `.gitignore`).
+Shared conventions for contributors live in `CONTRIBUTING.md`, `docs/PLAN.md`, and category READMEs under `overlays/`.
 
 ### REPO (implementation — what ships to GitHub)
 
@@ -221,7 +219,7 @@ Backed by the same `schemas/` and `overlays/` tree — MCP is a thin I/O facade,
 1. Pick category → add or edit `.geojson`.
 2. Run / rely on CI schema validation.
 3. Open PR; for `community` / future `hazards`, require human review label.
-4. Agents: follow `.cursor/skills/add-overlay` and never invent basemap tiles.
+4. Agents: follow `CONTRIBUTING.md` / `docs/PLAN.md` and never invent basemap tiles.
 
 ---
 

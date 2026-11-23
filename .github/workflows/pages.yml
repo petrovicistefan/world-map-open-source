@@ -22,7 +22,7 @@ jobs:
 
       - name: Assemble static site
         run: |
-          mkdir -p _site/apps _site/overlays _site/docs _site/.cursor/skills
+          mkdir -p _site/apps _site/overlays _site/docs
           cp -R apps/docs apps/demo _site/apps/
           cp -R overlays/* _site/overlays/
           mkdir -p _site/assets
@@ -32,9 +32,6 @@ jobs:
           cp -R docs/* _site/docs/ 2>/dev/null || true
           cp README.md CONTRIBUTING.md _site/
           cp apps/pages-root.html _site/index.html
-          if [ -d .cursor/skills/add-overlay ]; then
-            cp -R .cursor/skills/add-overlay _site/.cursor/skills/
-          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

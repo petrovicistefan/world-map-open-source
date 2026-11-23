@@ -46,5 +46,5 @@ No webpack, no TypeScript build, no backend.
 
 ## Docs
 
-- Skill: `.cursor/skills/add-overlay/`
 - Plan: `docs/PLAN.md`
+- Local Cursor rules/skills (optional, gitignored): `.cursor/`
