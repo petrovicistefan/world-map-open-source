@@ -81,9 +81,6 @@
               "$ref": "#/$defs/propsCommunity"
             },
             {
-              "$ref": "#/$defs/propsGta6"
-            },
-            {
               "$ref": "#/$defs/propsLater"
             }
           ]
@@ -324,45 +321,6 @@
                 "cooling_center",
                 "free_wifi",
                 "women_support"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    "propsGta6": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/propsShared"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "category": {
-              "const": "gta6"
-            },
-            "kind": {
-              "enum": [
-                "landmark",
-                "district",
-                "safehouse",
-                "clothing",
-                "gun_shop",
-                "barber",
-                "tattoo",
-                "convenience",
-                "gas_station",
-                "garage",
-                "hospital",
-                "police",
-                "club",
-                "bar",
-                "airport",
-                "marina",
-                "port",
-                "beach",
-                "park",
-                "collectible"
               ]
             }
           }

@@ -2,7 +2,7 @@
  * Inline copy of schemas/taxonomy.json — keep in sync.
  */
 export const TAXONOMY = {
-  "version": "0.3.1",
+  "version": "0.3.2",
   "default_license": "ODbL-1.0",
   "id_convention": "{category}/{city}-{slug}",
   "product_focus": [

@@ -3,7 +3,7 @@
   "$id": "https://github.com/petrovicistefan/world-map-open-source/schemas/taxonomy.json",
   "title": "World Map Open Source Overlay Taxonomy",
   "description": "Curated overlays: services useful to women + spaces for children. Not charity banks; not a full OSM mirror.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "default_license": "ODbL-1.0",
   "id_convention": "{category}/{city}-{slug}",
   "product_focus": [
@@ -191,37 +191,7 @@
     "women_support only for publicly listed organizations",
     "creche/kita: public listings only \u2014 no private home daycare addresses"
   ],
-  "namespaces": [
-    {
-      "id": "gta6",
-      "path": "overlays/_ns/gta6/",
-      "status": "active",
-      "review_policy": "open",
-      "description": "Unofficial fan map of Leonida-inspired points on real South Florida geography. Not affiliated with Rockstar Games.",
-      "kinds": [
-        "landmark",
-        "district",
-        "safehouse",
-        "clothing",
-        "gun_shop",
-        "barber",
-        "tattoo",
-        "convenience",
-        "gas_station",
-        "garage",
-        "hospital",
-        "police",
-        "club",
-        "bar",
-        "airport",
-        "marina",
-        "port",
-        "beach",
-        "park",
-        "collectible"
-      ]
-    }
-  ],
+  "namespaces": [],
   "layer_contract": {
     "description": "When creating a new overlay category/layer, set id, kinds, review_policy, icon (SVG under assets/icons/), and color. The demo loads icon onto the map as a MapLibre symbol.",
     "required_fields": [
